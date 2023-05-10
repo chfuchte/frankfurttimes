@@ -1,15 +1,5 @@
 <script lang="ts">
 export default {
-  props: {
-    title: {
-      type: String,
-      required: true
-    },
-    icon: {
-      type: String,
-      required: true
-    }
-  },
   methods: {
     redirectToHome() {
       window.location.href = '/';
@@ -21,7 +11,7 @@ export default {
 <template>
   <v-app-bar :elevation="6" location="top">
     <v-app-bar-title @click="redirectToHome">
-      <img :src="`/img/${icon}/Dolphin${icon}_light.png`" :alt="title" />
+      Hallo
     </v-app-bar-title>
   </v-app-bar>
 </template>

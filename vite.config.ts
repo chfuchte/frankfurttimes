@@ -14,20 +14,22 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        index: './index.html'
+        index: './index.html',
       },
       output: {
-        manualChunks: undefined
+        manualChunks: undefined // Optional: Deaktiviert manuelle Chunk-Erstellung
       }
     },
     outDir: './dist',
     assetsDir: './src/assets',
-    chunkSizeWarningLimit: 2000,
-    emptyOutDir: true,
-    sourcemap: true,
-    manifest: false,
-    minify: true,
+    // Hinzufügen der HTML-Konfiguration
+    chunkSizeWarningLimit: 2000, // Optional: Legt das Limit für Chunk-Größenwarnungen fest
+    // Konfiguration für die HTML-Generierung
+    emptyOutDir: true, // Leert den Ausgabepfad (dist) vor dem Build
+    sourcemap: true, // Erzeugt Sourcemaps für den Build
+    manifest: true, // Generiert ein Manifest-File
+    minify: true, // Minimiert HTML- und CSS-Dateien
     write: true,
     copyPublicDir: true,
   }
-});
+})
