@@ -26,7 +26,6 @@ jobs:
 
       - name: Publish
         run: |
-          git remote add origin https://github.com/Barsch2006/frankfurttimes
           git config pull.rebase false
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
@@ -34,5 +33,5 @@ jobs:
           git checkout -b published
           git add dist
           git commit -m "Publish dist folder"
-          git pull --allow-unrelated-histories
+          git pull origin published --allow-unrelated-histories
           git push origin published --force
