@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Header from '../components/Header.vue'
+import Header from '../components/HeaderArea.vue'
 
 import { type Author, type User} from '../types/users';
 import { type Article} from '../types/article';

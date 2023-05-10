@@ -1,0 +1,35 @@
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Copy dist folder to published branch
+        run: |
+          git checkout published
+          rm -rf dist
+          cp -r ./dist ./
+          git add dist
+          git commit -m "Update published branch with new build"
+          git push
+
