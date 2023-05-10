@@ -26,7 +26,9 @@ jobs:
 
       - name: Copy dist folder to published branch
         run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com>"
+          git config --global user.name "github-actions[bot]"
           git config advice.addIgnoredFile false
           git add dist
-          git commit --allow-empty --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          git commit --allow-empty"
           git push https://github.com/Barsch2006/frankfurttimes/tree/published
