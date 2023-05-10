@@ -24,11 +24,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Copy dist folder to published branch
+      - name: Publish
         run: |
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com>"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git config advice.addIgnoredFile false
+          git checkout -b published
           git add dist
-          git commit --allow-empty"
-          git push https://github.com/Barsch2006/frankfurttimes/tree/published
+          git commit -m "Publish dist folder"
+          git push origin published
