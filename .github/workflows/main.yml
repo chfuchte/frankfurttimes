@@ -32,4 +32,5 @@ jobs:
           git checkout -b published
           git add dist
           git commit -m "Publish dist folder"
-          git push origin published
+          git pull origin published
+          git push origin published --force
