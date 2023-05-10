@@ -26,10 +26,7 @@ jobs:
 
       - name: Copy dist folder to published branch
         run: |
-          git checkout published
-          rm -rf dist
-          cp -r ./dist ./
           git add dist
           git commit -m "Update published branch with new build"
-          git push
+          git push https://github.com/Barsch2006/frankfurttimes/tree/published
 
