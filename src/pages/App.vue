@@ -33,7 +33,7 @@ const userData: { [key: string]: User } = {};
   <v-app>
     <Header />
 
-    <h1>Hallo</h1>
+    <h1>This is public now</h1>
   </v-app>
 </template>
 
