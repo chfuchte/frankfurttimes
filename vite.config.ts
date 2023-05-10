@@ -14,7 +14,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        index: '.index.html'
+        index: './index.html'
       },
       output: {
         manualChunks: undefined
