@@ -32,6 +32,8 @@ const userData: { [key: string]: User } = {};
 <template>
   <v-app>
     <Header />
+
+    <h1>Hallo</h1>
   </v-app>
 </template>
 
