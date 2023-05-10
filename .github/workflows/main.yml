@@ -26,6 +26,7 @@ jobs:
 
       - name: Copy dist folder to published branch
         run: |
+          git config advice.addIgnoredFile false
           git add dist
           git commit -m "Update published branch with new build"
           git push https://github.com/Barsch2006/frankfurttimes/tree/published
