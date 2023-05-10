@@ -33,5 +33,5 @@ jobs:
           git checkout -b published
           git add dist
           git commit -m "Publish dist folder"
-          git pull origin published
+          git pull --allow-unrelated-histories
           git push origin published --force
