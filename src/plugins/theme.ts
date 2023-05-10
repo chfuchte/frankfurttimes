@@ -2,12 +2,12 @@ export default {
     defaultTheme: 'frankfurtTimesTheme',
     themes: {
         frankfurtTimesTheme: {
-            dark: true,
+            dark: false,
             colors: {
-                background: '#222222', // Background-Color (dunkler)
-                surface: '#525252', // Form-Background-Color (heller)
+                background: '#ffffff', // Background-Color (Weiß)
+                surface: '#bfbfbf', // Form-Background-Color (dunkles Weiß)
                 primary: '#0470c2', // Blau
-                secondary: '#e1e1e1', // Weiß
+                secondary: '#525252', // Grau
                 error: '#de2810', // Rot
                 info: '#0cabcf', // Helles-Blau
                 success: '#109e10', // Helles Grün
