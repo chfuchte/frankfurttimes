@@ -24,9 +24,9 @@ jobs:
       - name: Build
         run: npm run build
       
-      # - name: Delete existing files
-      #   run: |
-      #       find . ! -name 'dist' -exec rm -r {} +
+      - name: Delete existing files
+        run: |
+            find . -not -path "*/dist/*" -type f -exec rm {} +
 
       - name: Move files from dist folder
         run: |
