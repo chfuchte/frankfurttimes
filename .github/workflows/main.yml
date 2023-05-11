@@ -16,13 +16,24 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
 
       - name: Install dependencies
         run: npm install
 
       - name: Build
         run: npm run build
+      
+      - name: Delete existing files
+        run: |
+            rm -rf *
+            rm -rf .gitignore
+
+      - name: Move files from dist folder
+        run: |
+            mv dist/* .
+            rm -rf dist
+
 
       - name: Publish
         run: |
@@ -35,3 +46,10 @@ jobs:
           git commit -m "Publish dist folder"
           git pull origin published --allow-unrelated-histories
           git push origin published --force
+      
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          branch: published
+          folder: .
+
