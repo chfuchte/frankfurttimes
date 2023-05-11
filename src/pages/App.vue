@@ -87,35 +87,35 @@ export default {
         <v-app-bar-nav-icon @click="show_drawer = !show_drawer"></v-app-bar-nav-icon>
       </v-app-bar>
 
-      <v-navigation-drawer v-model="show_drawer" location="right">
+      <v-navigation-drawer color="surface" v-model="show_drawer" location="right">
         <v-list density="comfortable">
           <v-list-item lines="one" @click="tab = 'newest'" height="50px" variant="flat" append-icon="mdi-newspaper" ripple
-            color="primary" density="comfortable">
+            density="comfortable">
             Neuste
           </v-list-item>
 
           <v-list-item lines="one" @click="tab = 'frankfurt'" height="50px" variant="flat" append-icon="mdi-map-marker"
-            ripple color="primary" density="comfortable">
+            ripple density="comfortable">
             Frankfurt
           </v-list-item>
 
           <v-list-item lines="one" @click="tab = 'wirtschaft'" height="50px" variant="flat" append-icon="mdi-chart-line"
-            ripple color="primary" density="comfortable">
+            ripple density="comfortable">
             Wirtschaft
           </v-list-item>
 
           <v-list-item lines="one" @click="tab = 'usa'" height="50px" variant="flat" append-icon="mdi-flag-variant" ripple
-            color="primary" density="comfortable">
+            density="comfortable">
             USA
           </v-list-item>
 
           <v-list-item lines="one" @click="tab = 'international'" height="50px" variant="flat" append-icon="mdi-earth"
-            ripple color="primary" density="comfortable">
+            ripple density="comfortable">
             International
           </v-list-item>
 
           <v-list-item lines="one" @click="tab = 'team'" height="50px" variant="flat" append-icon="mdi-account-supervisor"
-            ripple color="primary" density="comfortable">
+            ripple density="comfortable">
             Redaktion
           </v-list-item>
         </v-list>
@@ -196,8 +196,7 @@ export default {
         <v-window-item value="team">
           <v-container fluid>
             <v-row dense :style="{ gap: '40px' }">
-              <v-card color="secondary" width="400" v-bind:key="teamMember.name.toString()"
-                v-for="teamMember in teamData">
+              <v-card color="primary" width="400" v-bind:key="teamMember.name.toString()" v-for="teamMember in teamData">
                 <v-img width="400" aspect-ratio="1/1" :src="teamMember.img.toString()" />
                 <v-card-title>
                   {{ teamMember.name }}

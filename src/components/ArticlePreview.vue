@@ -8,6 +8,20 @@ export default {
         preview_text: String,
         date: String
     },
+    data() {
+        return {
+            heigth: '150px',
+            width: 'auto',
+            maxWidth: '400px'
+        }
+    },
+    created() {
+        if (window.innerWidth <= 600) {
+            this.heigth = '';
+            this.width = '100%';
+            this.maxWidth = '600px';
+        }
+    },
     methods: {
         openArticle() {
             this.$emit('openArticle', this.id);
@@ -17,10 +31,11 @@ export default {
 </script>
 
 <template>
-    <v-card class="article-preview" @click="openArticle()" density="compact">
+    <v-card color="primary" class="article-preview" @click="openArticle()" density="compact">
         <v-row no-gutters>
-            <v-col cols="12" sm="4">
-                <v-img height="200px" :src="preview_img" aspect-ratio="1" />
+            <v-col cols="12" sm="4"
+                :style="{ maxWidth: maxWidth,  display: 'inline-flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start' }">
+                <v-img :height="heigth" :width="width" :src="preview_img" cover />
             </v-col>
             <v-col cols="12" sm="8">
                 <v-card-title class="headline">{{ title }}</v-card-title>
@@ -41,7 +56,7 @@ export default {
 }
 
 .headline {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 8px;
 }
@@ -53,5 +68,4 @@ export default {
 .preview-text {
     font-size: 16px;
     line-height: 1.5;
-}
-</style>
+}</style>
