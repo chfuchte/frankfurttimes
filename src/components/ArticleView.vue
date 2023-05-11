@@ -16,8 +16,8 @@ export default {
 </script>
 
 <template>
-    <v-card width="80%" height="80%">
-        <v-img :src="preview_img" />
+    <v-card width="80%" color="primary" style="margin-top: 20px;">
+        <v-img :src="preview_img" cover />
 
         <v-card-title>
             {{ title }}

@@ -158,7 +158,7 @@ export default {
         </v-window-item>
 
         <v-window-item value="viewArticle"
-          :style="{ display: tab == 'viewArticle' ? 'flex' : 'none', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', width: '100%' }">
+          :style="{ display: tab == 'viewArticle' ? 'flex' : 'none', justifyContent: 'center', width: '100%' }">
           <ArticleView :text="text" :id="id" :title="title" :date="date" :preview_img="preview_img" :author="author" />
         </v-window-item>
 
@@ -261,7 +261,7 @@ header img {
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 600px) {
   header h1 {
     font-size: 20px;
   }
