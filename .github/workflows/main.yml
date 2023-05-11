@@ -26,7 +26,7 @@ jobs:
       
       - name: Delete existing files
         run: |
-            find . -not -path "*/dist/*" -type f -exec rm {} +
+            find . -not -path "dist" -type f -exec rm {} +
 
       - name: Move files from dist folder
         run: |
