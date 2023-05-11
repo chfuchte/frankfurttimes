@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import Header from '../components/HeaderArea.vue'
+import HeaderArea from '../components/HeaderArea.vue'
+import FooterArea from '@/components/FooterArea.vue';
 
 import { type Author, type User} from '../types/users';
 import { type Article} from '../types/article';
@@ -31,10 +32,14 @@ const userData: { [key: string]: User } = {};
 
 <template>
   <v-app>
-    <Header />
+    <HeaderArea />
 
-    <h1>This is public now</h1>
+    <v-main>
+      <h1>Halloo</h1>
+    </v-main>
   </v-app>
+
+  <FooterArea />
 </template>
 
 <style scoped></style>

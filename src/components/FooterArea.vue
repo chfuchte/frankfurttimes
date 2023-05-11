@@ -9,8 +9,7 @@
       <a href="/datenschutz.html">Datenschutz</a>
     </div>
     <div dir="d2">
-      <a :href="authenticated ? '/logout' : '/login.html'">{{ authenticated ? 'Logout' : 'Login' }}</a>
-      <a href="/support.html">Support</a>
+      <a href="/">Startseite</a>
     </div>
   </footer>
 </template>
