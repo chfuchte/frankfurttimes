@@ -164,7 +164,7 @@ export default {
 
         <v-window-item value="team">
           <v-container fluid>
-            <v-row dense :style="{ gap: '40px' }">
+            <v-row dense :style="{ gap: '40px', alignItems: 'center', justifyContent: 'center' }">
               <v-card color="primary" width="400" v-bind:key="teamMember.name.toString()" v-for="teamMember in teamData">
                 <v-img width="400" aspect-ratio="1/1" :src="teamMember.img.toString()" />
                 <v-card-title>
