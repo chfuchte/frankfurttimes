@@ -6,7 +6,7 @@ import ArticleView from '@/components/ArticleView.vue';
 
 <script lang="ts">
 import { type Article } from '@/types/article';
-import articleData from '../assets/articleData';
+import { articleData } from '../assets/articleData';
 import newestArticleData from '../assets/newestArticleData';
 import { teamData } from '../assets/teamData';
 

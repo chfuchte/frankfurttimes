@@ -1,4 +1,6 @@
-export default {
+import type { Article } from "@/types/article";
+
+const articleData: { [key: string]: Article[] } = {
     frankfurt: [
         {
             id: 1,
@@ -72,3 +74,7 @@ export default {
         }
     ]
 };
+
+export {
+    articleData
+}
