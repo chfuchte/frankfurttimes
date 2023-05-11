@@ -1,76 +1,46 @@
 <script setup lang="ts">
 import FooterArea from '@/components/FooterArea.vue';
 import ArticlePreview from '@/components/ArticlePreview.vue';
-
-import { type Author } from '../types/users';
-import { type Article } from '../types/article';
-
-const articleData: { [key: string]: { [key: number]: Article } } = {
-  frankfurt: [
-    {
-      id: 1,
-      author: 'Heinz Stein',
-      title: 'Bahnbabo wird Bürgerbabo!',
-      preview_img: 'https://taz.de/picture/5726693/948/30806361-1.jpg',
-      date: '2023-05-11',
-      text: 'Der Bahnbabo von Frankfurt wurde am 05.03.2023 zum Oberbürgermeister von Frankfurt gekrönt.'
-    },
-    {
-      id: 2,
-      author: 'Heinz Stein',
-      title: 'Bahnbabo wird Bürgerbabo!',
-      preview_img: 'https://taz.de/picture/5726693/948/30806361-1.jpg',
-      date: '2023-05-11',
-      text: 'Der Bahnbabo von Frankfurt wurde am 05.03.2023 zum Oberbürgermeister von Frankfurt gekrönt.'
-    }
-  ],
-  wirtschaft: [
-
-  ],
-  usa: [
-
-  ],
-  international: [
-
-  ]
-};
-
-const newestArticleData: { [key: number]: Article } = [
-
-]
-
-const teamData: { [key: string]: Author } = {
-  norbertLarson: {
-    name: 'Norbert Larson',
-    job: 'Redaktionsleiter für Umwelt und Natur',
-    img: 'https://frankfurtdynamics.github.io/frankfurt-times/NorbertLarson.jpg',
-    about: 'Ich habe an keiner Uni Studiert bin aber ein Experte und sehe mich als Wissenschaftler. Ich lebe seit 7 Jahren im Wald und kenne mich daher sehr gut mit der Natur aus. Für diese Zeitung arbeite ich seitdem ich all meine Zähne verloren habe, als ich zu stark an einbem Baum kaute. Meine Hobbies sind Bäume anschauen und Wanderer erschrecken.'
-  },
-  heinzStein: {
-    name: 'Heinz Stein',
-    job: 'Reporter für Digitalisierung und IT Sicherheit',
-    img: 'https://frankfurtdynamics.github.io/frankfurt-times/HeinzStein.png',
-    about: ' Hallo, bin ich Online? Ja, ok. Mein Name ist Heinz ich habe 1982 mein Informatik Studium abgebrochen, und habe danach bis 2020 als IT Berater für die Bundesregierung gearbeitet. Ich bin wirklich gut mit moderner Technik, ich habe sogar mal ein Fax-Gerät benutzt.'
-  }
-};
+import ArticleView from '@/components/ArticleView.vue';
 </script>
 
 <script lang="ts">
+import { type Article } from '@/types/article';
+import articleData from '../assets/articleData';
+import newestArticleData from '../assets/newestArticleData';
+import { teamData } from '../assets/teamData';
+
 export default {
   data() {
     return {
       tab: "newest",
       show_drawer: false,
       article: null || String() || Number(),
+
+      id: null || Number(),
+      title: null || String(),
+      preview_img: null || String(),
+      author: null || String(),
+      text: null || String(),
+      date: null || String(),
+
+      team: teamData,
+      newest: newestArticleData,
+      articledata: articleData
     };
   },
   methods: {
     redirectToHome() {
       window.location.href = "/";
     },
-    openArcticle(id: string) {
-      this.article = id;
-      this.tab = 'article';
+    openArcticle(arcticleData: Article) {
+      this.tab = 'viewArticle';
+      this.id = arcticleData.id ?? 'error';
+      this.title = arcticleData.title.toString() ?? 'error';
+      this.preview_img = arcticleData.preview_img.toString() ?? 'error';
+      this.author = arcticleData.author.toString() ?? 'error';
+      this.text = arcticleData.text.toString() ?? 'error';
+      this.date = arcticleData.date.toString() ?? 'error';
     }
   },
 };
@@ -142,7 +112,7 @@ export default {
             <v-list-item color="background" v-bind:key="arcticle.id" ripple v-for="arcticle in newestArticleData">
               <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :id="arcticle.id" :title="arcticle.title"
                 :preview_img="arcticle.preview_img" :author="arcticle.author"
-                :preview_text="arcticle.text.substring(0, 50) + '...'" />
+                :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
             </v-list-item>
           </v-list>
         </v-window-item>
@@ -152,7 +122,7 @@ export default {
             <v-list-item color="background" v-bind:key="arcticle.id" ripple v-for="arcticle in articleData.frankfurt">
               <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :id="arcticle.id" :title="arcticle.title"
                 :preview_img="arcticle.preview_img" :author="arcticle.author"
-                :preview_text="arcticle.text.substring(0, 50) + '...'" />
+                :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
             </v-list-item>
           </v-list>
         </v-window-item>
@@ -162,7 +132,7 @@ export default {
             <v-list-item color="background" v-bind:key="arcticle.id" ripple v-for="arcticle in articleData.wirtschaft">
               <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :id="arcticle.id" :title="arcticle.title"
                 :preview_img="arcticle.preview_img" :author="arcticle.author"
-                :preview_text="arcticle.text.substring(0, 50) + '...'" />
+                :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
             </v-list-item>
           </v-list>
         </v-window-item>
@@ -172,7 +142,7 @@ export default {
             <v-list-item color="background" v-bind:key="arcticle.id" ripple v-for="arcticle in articleData.usa">
               <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :id="arcticle.id" :title="arcticle.title"
                 :preview_img="arcticle.preview_img" :author="arcticle.author"
-                :preview_text="arcticle.text.substring(0, 50) + '...'" />
+                :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
             </v-list-item>
           </v-list>
         </v-window-item>
@@ -182,15 +152,14 @@ export default {
             <v-list-item color="background" v-bind:key="arcticle.id" ripple v-for="arcticle in articleData.international">
               <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :id="arcticle.id" :title="arcticle.title"
                 :preview_img="arcticle.preview_img" :author="arcticle.author"
-                :preview_text="arcticle.text.substring(0, 50) + '...'" />
+                :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
             </v-list-item>
           </v-list>
         </v-window-item>
 
-        <v-window-item value="article">
-          <h1>
-            {{ article }}
-          </h1>
+        <v-window-item value="viewArticle"
+          :style="{ display: tab == 'viewArticle' ? 'flex' : 'none', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', width: '100%' }">
+          <ArticleView :text="text" :id="id" :title="title" :date="date" :preview_img="preview_img" :author="author" />
         </v-window-item>
 
         <v-window-item value="team">

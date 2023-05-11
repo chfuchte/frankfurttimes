@@ -6,7 +6,8 @@ export default {
         preview_img: String,
         author: String,
         preview_text: String,
-        date: String
+        date: String,
+        text: String
     },
     data() {
         return {
@@ -24,7 +25,15 @@ export default {
     },
     methods: {
         openArticle() {
-            this.$emit('openArticle', this.id);
+            this.$emit('openArticle', {
+                id: this.id,
+                title: this.title,
+                preview_img: this.preview_img,
+                author: this.author,
+                preview_text: this.preview_text,
+                date: this.date,
+                text: this.text
+            });
         }
     }
 }
@@ -34,7 +43,7 @@ export default {
     <v-card color="primary" class="article-preview" @click="openArticle()" density="compact">
         <v-row no-gutters>
             <v-col cols="12" sm="4"
-                :style="{ maxWidth: maxWidth,  display: 'inline-flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start' }">
+                :style="{ maxWidth: maxWidth, display: 'inline-flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start' }">
                 <v-img :height="heigth" :width="width" :src="preview_img" cover />
             </v-col>
             <v-col cols="12" sm="8">
@@ -68,4 +77,5 @@ export default {
 .preview-text {
     font-size: 16px;
     line-height: 1.5;
-}</style>
+}
+</style>
