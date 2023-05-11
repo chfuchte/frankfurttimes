@@ -1,9 +1,10 @@
 interface Article {
-    title: String,
-    url: String,
-    preview_img: String,
-    author: String,
-    text: String
+    id: number,
+    title: string,
+    preview_img: string,
+    author: string,
+    text: string,
+    date: string
 }
 
 export type {

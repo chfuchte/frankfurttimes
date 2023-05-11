@@ -1,16 +1,11 @@
 interface Author {
-    name: String,
-    job: String,
-    img: String,
-    about: String
-}
-
-interface User {
-    name: String,
-    about: String
+[x: string]: any
+    name: string | String,
+    job: string | String,
+    img: string | String,
+    about: string | String
 }
 
 export type {
-    Author,
-    User
+    Author
 }

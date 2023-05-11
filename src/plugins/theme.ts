@@ -5,7 +5,7 @@ export default {
             dark: false,
             colors: {
                 background: '#ffffff', // Background-Color (Weiß)
-                surface: '#bfbfbf', // Form-Background-Color (dunkles Weiß)
+                surface: '#d1d1d1', // Form-Background-Color (dunkles Weiß)
                 primary: '#0470c2', // Blau
                 secondary: '#525252', // Grau
                 error: '#de2810', // Rot

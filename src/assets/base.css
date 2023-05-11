@@ -21,3 +21,7 @@ a {
 a:hover {
   color: #34c4d1;
 }
+
+.v-main {
+  min-height: calc(100vh -120px);
+}

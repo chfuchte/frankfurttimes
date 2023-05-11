@@ -1,6 +1,6 @@
 <script lang="ts">
-    export default {};
-    </script>
+export default {};
+</script>
 
 <template>
   <footer>
