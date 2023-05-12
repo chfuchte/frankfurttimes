@@ -1,7 +1,6 @@
 <script lang="ts">
 export default {
     props: {
-        id: Number,
         title: String,
         preview_img: String,
         author: String,
@@ -26,7 +25,6 @@ export default {
     methods: {
         openArticle() {
             this.$emit('openArticle', {
-                id: this.id,
                 title: this.title,
                 preview_img: this.preview_img,
                 author: this.author,
@@ -40,7 +38,7 @@ export default {
 </script>
 
 <template>
-    <v-card color="primary" class="article-preview" @click="openArticle()" density="compact">
+    <v-card color="primary" class="article-preview" @click="openArticle()" density="compact" border="0" elevation="0" >
         <v-row no-gutters>
             <v-col cols="12" sm="4"
                 :style="{ maxWidth: maxWidth, display: 'inline-flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start' }">
@@ -49,8 +47,8 @@ export default {
             <v-col cols="12" sm="8">
                 <v-card-title class="headline">{{ title }}</v-card-title>
                 <v-card-subtitle class="metadata">
-                    <span>{{ author }}</span>
-                    <span>{{ date }}</span>
+                    <h4>{{ author }}</h4>
+                    <p> {{ date }} </p>
                 </v-card-subtitle>
                 <v-card-text class="preview-text">{{ preview_text }}</v-card-text>
             </v-col>

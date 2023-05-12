@@ -1,32 +1,85 @@
-<script setup lang="ts">
+<script lang="ts">
+// import type { Author } from "@/types/users";
+// var teamData: { [key: string]: Author };
+// var newestArticleData: Article[];
+// var articleData: { [key: string]: Article[] };
+import { type Article } from '@/types/article';
+import { type Author } from '@/types/users';
+
 import FooterArea from '@/components/FooterArea.vue';
 import ArticlePreview from '@/components/ArticlePreview.vue';
 import ArticleView from '@/components/ArticleView.vue';
-</script>
-
-<script lang="ts">
-import { type Article } from '@/types/article';
-import { articleData } from '../assets/articleData';
-import newestArticleData from '../assets/newestArticleData';
-import { teamData } from '../assets/teamData';
+import { ref } from 'vue';
 
 export default {
+  beforeMount() {
+    fetch('/teamData.json').then((res: Response) => res.json()).then((data: { [key: string]: Author }) => {
+      if (this.articleData) {
+        this.teamData = data;
+      }
+    });
+    fetch('/newestArticleData.json').then((res: Response) => res.json()).then((data: Article[]) => {
+      this.newestArticleData = data;
+    });
+    fetch('/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
+      this.articleData = data;
+    });
+  },
+  mounted() {
+    // Überprüfe, ob der Hash vorhanden ist
+    if (window.location.hash && window.location.hash.length > 1) {
+      const tabs: any = [
+        'newest',
+        'frankfurt',
+        'wirtschaft',
+        'usa',
+        'international',
+      ]
+      // Entferne das #-Zeichen vom Ankerwert
+      let stab: string = window.location.hash.substring(1);
+      if (tabs.includes(stab) == true) {
+        console.log(stab)
+        this.tab = stab;
+      }
+    }
+
+    let article: Record<string, Article[]>;
+
+    fetch('/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
+      article = data;
+      // Überprüfe, ob Suchparameter vorhanden sind
+      const params = new URLSearchParams(window.location.search);
+      const articleId: string = params.get('id') ?? '';
+      const folder: string = params.get('t') ?? '';
+
+      if (articleId && folder && article) {
+        if (article[folder] != undefined && article[folder][parseInt(articleId)] != undefined) {
+
+          console.log(article[folder])
+          this.openArcticle(article[folder][parseInt(articleId)])
+        }
+      }
+    });
+  },
+  components: {
+    ArticleView,
+    ArticlePreview,
+    FooterArea
+  },
   data() {
     return {
       tab: "newest",
       show_drawer: false,
-      article: null || String() || Number(),
 
-      id: null || Number(),
       title: null || String(),
       preview_img: null || String(),
       author: null || String(),
       text: null || String(),
       date: null || String(),
 
-      team: teamData,
-      newest: newestArticleData,
-      articledata: articleData
+      teamData: ref<Record<string, Author>>({}),
+      newestArticleData: ref<Article[]>([]),
+      articleData: ref<Record<string, Article[]>>({}),
     };
   },
   methods: {
@@ -35,7 +88,6 @@ export default {
     },
     openArcticle(arcticleData: Article) {
       this.tab = 'viewArticle';
-      this.id = arcticleData.id ?? 'error';
       this.title = arcticleData.title.toString() ?? 'error';
       this.preview_img = arcticleData.preview_img.toString() ?? 'error';
       this.author = arcticleData.author.toString() ?? 'error';
@@ -109,8 +161,8 @@ export default {
       <v-window v-model="tab">
         <v-window-item value="newest">
           <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.id" ripple v-for="arcticle in newestArticleData">
-              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :id="arcticle.id" :title="arcticle.title"
+            <v-list-item color="background" v-bind:key="arcticle.title" ripple v-for="arcticle in newestArticleData">
+              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :title="arcticle.title"
                 :preview_img="arcticle.preview_img" :author="arcticle.author"
                 :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
             </v-list-item>
@@ -119,8 +171,8 @@ export default {
 
         <v-window-item value="frankfurt">
           <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.id" ripple v-for="arcticle in articleData.frankfurt">
-              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :id="arcticle.id" :title="arcticle.title"
+            <v-list-item color="background" v-bind:key="arcticle.title" ripple v-for="arcticle in articleData?.frankfurt">
+              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :title="arcticle.title"
                 :preview_img="arcticle.preview_img" :author="arcticle.author"
                 :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
             </v-list-item>
@@ -129,8 +181,8 @@ export default {
 
         <v-window-item value="wirtschaft">
           <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.id" ripple v-for="arcticle in articleData.wirtschaft">
-              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :id="arcticle.id" :title="arcticle.title"
+            <v-list-item color="background" v-bind:key="arcticle.title" ripple v-for="arcticle in articleData?.wirtschaft">
+              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :title="arcticle.title"
                 :preview_img="arcticle.preview_img" :author="arcticle.author"
                 :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
             </v-list-item>
@@ -139,8 +191,8 @@ export default {
 
         <v-window-item value="usa">
           <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.id" ripple v-for="arcticle in articleData.usa">
-              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :id="arcticle.id" :title="arcticle.title"
+            <v-list-item color="background" v-bind:key="arcticle.title" ripple v-for="arcticle in articleData?.usa">
+              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :title="arcticle.title"
                 :preview_img="arcticle.preview_img" :author="arcticle.author"
                 :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
             </v-list-item>
@@ -149,8 +201,9 @@ export default {
 
         <v-window-item value="international">
           <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.id" ripple v-for="arcticle in articleData.international">
-              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :id="arcticle.id" :title="arcticle.title"
+            <v-list-item color="background" v-bind:key="arcticle.title" ripple
+              v-for="arcticle in articleData?.international">
+              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :title="arcticle.title"
                 :preview_img="arcticle.preview_img" :author="arcticle.author"
                 :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
             </v-list-item>
@@ -158,8 +211,8 @@ export default {
         </v-window-item>
 
         <v-window-item value="viewArticle"
-          :style="{ display: tab == 'viewArticle' ? 'flex' : 'none', justifyContent: 'center', width: '100%' }">
-          <ArticleView :text="text" :id="id" :title="title" :date="date" :preview_img="preview_img" :author="author" />
+          :style="{ display: tab == 'viewArticle' ? 'flex' : 'none', justifyContent: 'center', width: '100%', minHeight: '100%' }">
+          <ArticleView :text="text" :title="title" :date="date" :preview_img="preview_img" :author="author" />
         </v-window-item>
 
         <v-window-item value="team">

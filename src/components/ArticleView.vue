@@ -1,11 +1,6 @@
-<script setup lang="ts">
-import { teamData } from '@/assets/teamData';
-</script>
-
 <script lang="ts">
 export default {
     props: {
-        id: Number,
         title: String,
         preview_img: String,
         author: String,
@@ -16,17 +11,21 @@ export default {
 </script>
 
 <template>
-    <v-card width="80%" color="primary" style="margin-top: 20px;">
+    <v-card width="75%" height="auto" color="background" border="0" elevation="3" style="padding-bottom: 100px;">
         <v-img :src="preview_img" cover />
 
         <v-card-title>
-            {{ title }}
+            <h1>{{ title }}</h1>
         </v-card-title>
 
+        <v-divider color="primary" thickness="2"></v-divider>
+
         <v-card-subtitle>
-            {{ date }} <br>
-            {{ author }}
+            <i>{{ date }}</i> <br>
+            <b>{{ author }}</b>
         </v-card-subtitle>
+
+        <v-divider></v-divider>
 
         <v-card-text>
             {{ text }}
