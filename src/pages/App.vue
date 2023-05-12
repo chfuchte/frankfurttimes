@@ -9,6 +9,7 @@ import { type Author } from '@/types/users';
 import FooterArea from '@/components/FooterArea.vue';
 import ArticlePreview from '@/components/ArticlePreview.vue';
 import ArticleView from '@/components/ArticleView.vue';
+import OtherNews from '@/components/OtherNews.vue';
 import { ref } from 'vue';
 
 export default {
@@ -61,7 +62,8 @@ export default {
   components: {
     ArticleView,
     ArticlePreview,
-    FooterArea
+    FooterArea,
+    OtherNews
   },
   data() {
     return {
@@ -76,6 +78,8 @@ export default {
 
       teamData: ref<Record<string, Author>>({}),
       articleData: ref<Record<string, Article[]>>({}),
+
+      width: window.innerWidth
     };
   },
   methods: {
@@ -156,58 +160,73 @@ export default {
     <v-main>
       <v-window v-model="tab">
         <v-window-item value="newest">
-          <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.title" ripple
-              v-for="(arcticle, index) in articleData.newest">
-              <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
-                :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
-                :url="'/index.html?t=newest&id=' + index" />
-            </v-list-item>
-          </v-list>
+          <v-row>
+            <v-list :width="width > 900 ? '80%' : '100%'" color="background" bg-color="background">
+              <v-list-item color="background" v-bind:key="arcticle.title" ripple
+                v-for="(arcticle, index) in articleData.newest">
+                <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
+                  :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
+                  :url="'/index.html?t=newest&id=' + index" />
+              </v-list-item>
+            </v-list>
+            <OtherNews :width="width > 900 ? '16%' : '0%'" v-if="width > 900" />
+          </v-row>
         </v-window-item>
 
         <v-window-item value="frankfurt">
-          <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.title" ripple
-              v-for="(arcticle, index) in articleData?.frankfurt">
-              <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
-                :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
-                :url="'/index.html?t=international&id=' + index" />
-            </v-list-item>
-          </v-list>
+          <v-row>
+            <v-list :width="width > 900 ? '80%' : '100%'" color="background" bg-color="background">
+              <v-list-item color="background" v-bind:key="arcticle.title" ripple
+                v-for="(arcticle, index) in articleData?.frankfurt">
+                <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
+                  :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
+                  :url="'/index.html?t=international&id=' + index" />
+              </v-list-item>
+            </v-list>
+            <OtherNews :width="width > 900 ? '16%' : '0%'" v-if="width > 900" />
+          </v-row>
         </v-window-item>
 
         <v-window-item value="wirtschaft">
-          <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.title" ripple
-              v-for="(arcticle, index) in articleData?.wirtschaft">
-              <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
-                :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
-                :url="'/index.html?t=international&id=' + index" />
-            </v-list-item>
-          </v-list>
+          <v-row>
+            <v-list :width="width > 900 ? '80%' : '100%'" color="background" bg-color="background">
+              <v-list-item color="background" v-bind:key="arcticle.title" ripple
+                v-for="(arcticle, index) in articleData?.wirtschaft">
+                <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
+                  :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
+                  :url="'/index.html?t=international&id=' + index" />
+              </v-list-item>
+            </v-list>
+            <OtherNews :width="width > 900 ? '16%' : '0%'" v-if="width > 900" />
+          </v-row>
         </v-window-item>
 
         <v-window-item value="usa">
-          <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.title" ripple
-              v-for="(arcticle, index) in articleData?.usa">
-              <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
-                :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
-                :url="'/index.html?t=international&id=' + index" />
-            </v-list-item>
-          </v-list>
+          <v-row>
+            <v-list :width="width > 900 ? '80%' : '100%'" color="background" bg-color="background">
+              <v-list-item color="background" v-bind:key="arcticle.title" ripple
+                v-for="(arcticle, index) in articleData?.usa">
+                <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
+                  :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
+                  :url="'/index.html?t=international&id=' + index" />
+              </v-list-item>
+            </v-list>
+            <OtherNews :width="width > 900 ? '16%' : '0%'" v-if="width > 900" />
+          </v-row>
         </v-window-item>
 
         <v-window-item value="international">
-          <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.title" ripple
-              v-for="(arcticle, index) in articleData?.international">
-              <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
-                :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
-                :url="'/index.html?t=international&id=' + index" />
-            </v-list-item>
-          </v-list>
+          <v-row>
+            <v-list :width="width > 900 ? '80%' : '100%'" color="background" bg-color="background">
+              <v-list-item color="background" v-bind:key="arcticle.title" ripple
+                v-for="(arcticle, index) in articleData?.international">
+                <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
+                  :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
+                  :url="'/index.html?t=international&id=' + index" />
+              </v-list-item>
+            </v-list>
+            <OtherNews :width="width > 900 ? '16%' : '0%'" v-if="width > 900" />
+          </v-row>
         </v-window-item>
 
         <v-window-item value="viewArticle"

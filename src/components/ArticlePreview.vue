@@ -11,7 +11,7 @@ export default {
     },
     data() {
         return {
-            heigth: '150px',
+            heigth: '250px',
             width: 'auto',
             maxWidth: '400px'
         }
@@ -32,8 +32,9 @@ export default {
 </script>
 
 <template>
-    <v-card color="primary" class="article-preview" @click="openArticle()" density="compact" border="0" elevation="0" >
-        <v-row no-gutters>
+    <v-card color="background" class="article-preview" @click="openArticle()" density="compact" border="0" elevation="0" >
+        <v-divider color="surface" thickness="2"></v-divider>
+        <v-row >
             <v-col cols="12" sm="4"
                 :style="{ maxWidth: maxWidth, display: 'inline-flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start' }">
                 <v-img :height="heigth" :width="width" :src="preview_img" cover />
@@ -47,10 +48,15 @@ export default {
                 <v-card-text class="preview-text">{{ preview_text }}</v-card-text>
             </v-col>
         </v-row>
+        <v-divider color="surface" thickness="2"></v-divider>
     </v-card>
 </template>
 
 <style scoped>
+.v-card {
+    margin: 20px 5px;
+}
+
 .article-preview {
     cursor: pointer;
     margin-bottom: 20px;
