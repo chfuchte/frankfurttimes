@@ -18,9 +18,6 @@ export default {
         this.teamData = data;
       }
     });
-    fetch('/newestArticleData.json').then((res: Response) => res.json()).then((data: Article[]) => {
-      this.newestArticleData = data;
-    });
     fetch('/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
       this.articleData = data;
     });
@@ -78,7 +75,6 @@ export default {
       date: null || String(),
 
       teamData: ref<Record<string, Author>>({}),
-      newestArticleData: ref<Article[]>([]),
       articleData: ref<Record<string, Article[]>>({}),
     };
   },
@@ -161,40 +157,44 @@ export default {
       <v-window v-model="tab">
         <v-window-item value="newest">
           <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.title" ripple v-for="arcticle in newestArticleData">
-              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :title="arcticle.title"
-                :preview_img="arcticle.preview_img" :author="arcticle.author"
-                :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
+            <v-list-item color="background" v-bind:key="arcticle.title" ripple
+              v-for="(arcticle, index) in articleData.newest">
+              <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
+                :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
+                :url="'/index.html?t=newest&id=' + index" />
             </v-list-item>
           </v-list>
         </v-window-item>
 
         <v-window-item value="frankfurt">
           <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.title" ripple v-for="arcticle in articleData?.frankfurt">
-              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :title="arcticle.title"
-                :preview_img="arcticle.preview_img" :author="arcticle.author"
-                :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
+            <v-list-item color="background" v-bind:key="arcticle.title" ripple
+              v-for="(arcticle, index) in articleData?.frankfurt">
+              <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
+                :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
+                :url="'/index.html?t=international&id=' + index" />
             </v-list-item>
           </v-list>
         </v-window-item>
 
         <v-window-item value="wirtschaft">
           <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.title" ripple v-for="arcticle in articleData?.wirtschaft">
-              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :title="arcticle.title"
-                :preview_img="arcticle.preview_img" :author="arcticle.author"
-                :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
+            <v-list-item color="background" v-bind:key="arcticle.title" ripple
+              v-for="(arcticle, index) in articleData?.wirtschaft">
+              <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
+                :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
+                :url="'/index.html?t=international&id=' + index" />
             </v-list-item>
           </v-list>
         </v-window-item>
 
         <v-window-item value="usa">
           <v-list color="background" bg-color="background">
-            <v-list-item color="background" v-bind:key="arcticle.title" ripple v-for="arcticle in articleData?.usa">
-              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :title="arcticle.title"
-                :preview_img="arcticle.preview_img" :author="arcticle.author"
-                :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
+            <v-list-item color="background" v-bind:key="arcticle.title" ripple
+              v-for="(arcticle, index) in articleData?.usa">
+              <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
+                :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
+                :url="'/index.html?t=international&id=' + index" />
             </v-list-item>
           </v-list>
         </v-window-item>
@@ -202,10 +202,10 @@ export default {
         <v-window-item value="international">
           <v-list color="background" bg-color="background">
             <v-list-item color="background" v-bind:key="arcticle.title" ripple
-              v-for="arcticle in articleData?.international">
-              <ArticlePreview @openArticle="openArcticle" :date="arcticle.date" :title="arcticle.title"
-                :preview_img="arcticle.preview_img" :author="arcticle.author"
-                :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text" />
+              v-for="(arcticle, index) in articleData?.international">
+              <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
+                :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
+                :url="'/index.html?t=international&id=' + index" />
             </v-list-item>
           </v-list>
         </v-window-item>

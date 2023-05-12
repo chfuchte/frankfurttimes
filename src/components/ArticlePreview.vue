@@ -6,7 +6,8 @@ export default {
         author: String,
         preview_text: String,
         date: String,
-        text: String
+        text: String,
+        url: String
     },
     data() {
         return {
@@ -24,14 +25,7 @@ export default {
     },
     methods: {
         openArticle() {
-            this.$emit('openArticle', {
-                title: this.title,
-                preview_img: this.preview_img,
-                author: this.author,
-                preview_text: this.preview_text,
-                date: this.date,
-                text: this.text
-            });
+            window.location.href = this.url ?? window.location.href;
         }
     }
 }
