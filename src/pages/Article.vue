@@ -54,7 +54,16 @@ export default {
     methods: {
         async share() {
             try {
-                await navigator.clipboard.writeText(this.url);
+                this.shared = true;
+            } catch (err: Error | any) {
+                this.isError = true;
+                this.error = err.toString();
+            }
+        },
+        async copyLink() {
+            try {
+                await navigator.clipboard.writeText(`${window.location.protocol}//${window.location.hostname}:${window.location.port}${this.url}`);
+                this.shared = false;
             } catch (err: Error | any) {
                 this.isError = true;
                 this.error = err.toString();
@@ -73,7 +82,8 @@ export default {
 
             isError: false,
             error: '',
-            width: '75%'
+            width: '75%',
+            shared: false
         }
     },
 }
@@ -84,6 +94,29 @@ export default {
         <LinkHeaderArea />
 
         <v-main :style="{ display: 'flex', justifyContent: 'center', width: '100%', minHeight: '100vh' }">
+            <v-dialog :width="width == '75%' ? '400px' : '80%'" v-model="shared">
+                <v-card color="info">
+                    <v-card-title
+                        style=" width: 100%; display: inline-flex; align-items: center; justify-content: space-between">
+                        Artikel Teilen
+                        <v-icon icon="mdi-share" size="24px" end></v-icon>
+                    </v-card-title>
+
+                    <v-card-text>
+                        <v-btn @click="copyLink()" color="background" elevation="0" border="0" icon="mdi-content-copy" />
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-btn @click="shared = false">Schließen</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+
+            <v-dialog :width="width == '75%' ? '400px' : '80%'" v-model="isError">
+                <v-alert closable title="Ein Fehler ist aufgetreten" :text="error" type="error" variant="tonal"
+                    v-if="isError" />
+            </v-dialog>
+
             <v-card :width="width" height="auto" color="background" border="0" elevation="3" style="padding-bottom: 100px;">
                 <v-img :src="img" v-if="img" cover />
 
@@ -91,21 +124,17 @@ export default {
                     <h1>{{ title }}</h1>
                 </v-card-title>
 
-                <v-alert closable title="Ein Fehler ist aufgetreten" :text="error" type="error" variant="tonal"
-                    v-if="isError" />
-
                 <v-divider color="primary" thickness="2"></v-divider>
 
-                <v-card-subtitle>
-                    <v-row>
-                        <v-column>
-                            <i>{{ date }}</i> <br>
-                            <b>{{ author }}</b>
-                        </v-column>
-                        <v-card-actions>
-                            <v-btn icon="mdi-share" @click="share()" />
-                        </v-card-actions>
-                    </v-row>
+                <v-card-subtitle
+                    style="width: 100%; display: inline-flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <i>{{ date }}</i> <br>
+                        <b>{{ author }}</b>
+                    </div>
+                    <v-card-actions>
+                        <v-btn icon="mdi-share" @click="share()" />
+                    </v-card-actions>
                 </v-card-subtitle>
 
                 <v-card-text>
