@@ -1,4 +1,4 @@
-<script lang="ts">
+a<script lang="ts">
 import LinkHeaderArea from '@/components/LinkHeaderArea.vue';
 import FooterArea from '@/components/FooterArea.vue';
 import { type Article, type ArticlePart } from '@/types/article'
@@ -112,7 +112,7 @@ export default {
                 </v-card>
             </v-dialog>
 
-            <v-dialog :width="width == '75%' ? '400px' : '80%'" v-model="isError">
+            <v-dialog :width="width == '75%' ? '400px' : '80%'" v-model="isError" close-on-content-click>
                 <v-alert closable title="Ein Fehler ist aufgetreten" :text="error" type="error" variant="tonal"
                     v-if="isError" />
             </v-dialog>
@@ -120,7 +120,7 @@ export default {
             <v-card :width="width" height="auto" color="background" border="0" elevation="3" style="padding-bottom: 100px;">
                 <v-img :src="img" v-if="img" cover />
 
-                <v-card-title>
+                <v-card-title style="margin-top: 20px;">
                     <h1>{{ title }}</h1>
                 </v-card-title>
 
@@ -137,10 +137,26 @@ export default {
                     </v-card-actions>
                 </v-card-subtitle>
 
+                <v-divider color="primary" thickness="1"></v-divider>
+
                 <v-card-text>
-                    <v-row>
-                        <!-- todo -->
-                    </v-row>
+                    <v-container>
+                        <v-row v-bind:key="index" v-for="(c, index) in content">
+                            <article v-if="c.type == 'plain'">
+                                {{ c.text }}
+                            </article>
+
+                            <v-carousel v-if="c.type == 'carousel'">
+                                <v-carousel-item v-bind:key="index" v-for="(img_src, index) in c.carousel_srcs " :src="img_src" :alt="c.carousel_alts ? c.carousel_alts[index] : ''" cover></v-carousel-item>
+                            </v-carousel>
+
+                            <article v-if="c.type == 'src'">
+                                <a :href="src" v-for="(src, index) in c.srcs" v-bind:key="index">
+                                    {{ src }}
+                                </a>
+                            </article>
+                        </v-row>
+                    </v-container>
                 </v-card-text>
             </v-card>
         </v-main>
