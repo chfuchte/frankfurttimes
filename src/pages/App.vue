@@ -1,33 +1,14 @@
 <script lang="ts">
-// import type { Author } from "@/types/users";
-// var teamData: { [key: string]: Author };
-// var newestArticleData: Article[];
-// var articleData: { [key: string]: Article[] };
 import { type Article } from '@/types/article';
-import { type Author } from '@/types/users';
-
 import FooterArea from '@/components/FooterArea.vue';
 import ArticlePreview from '@/components/ArticlePreview.vue';
-import ArticleView from '@/components/ArticleView.vue';
-import OtherNews from '@/components/OtherNews.vue';
-import { ref } from 'vue';
 
 export default {
-  beforeMount() {
-    fetch('/teamData.json').then((res: Response) => res.json()).then((data: { [key: string]: Author }) => {
-      if (this.articleData) {
-        this.teamData = data;
-      }
-    });
-    fetch('/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
-      this.articleData = data;
-    });
-  },
   mounted() {
     // Überprüfe, ob der Hash vorhanden ist
     if (window.location.hash && window.location.hash.length > 1) {
       const tabs: any = [
-        'newest',
+        'home',
         'frankfurt',
         'wirtschaft',
         'usa',
@@ -41,59 +22,35 @@ export default {
       }
     }
 
-    let article: Record<string, Article[]>;
-
-    fetch('/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
-      article = data;
-      // Überprüfe, ob Suchparameter vorhanden sind
-      const params = new URLSearchParams(window.location.search);
-      const articleId: string = params.get('id') ?? '';
-      const folder: string = params.get('t') ?? '';
-
-      if (articleId && folder && article) {
-        if (article[folder] != undefined && article[folder][parseInt(articleId)] != undefined) {
-
-          console.log(article[folder])
-          this.openArcticle(article[folder][parseInt(articleId)])
-        }
-      }
-    });
+    // Überprüfe, ob Suchparameter vorhanden sind
+    const params = new URLSearchParams(window.location.search);
+    const articleId: string = params.get('id') ?? '';
+    const folder: string = params.get('t') ?? '';
+    if (articleId && folder) {
+      this.openHtml(`/article.html?t=${folder}&id=${articleId}`)
+    }
   },
   components: {
-    ArticleView,
     ArticlePreview,
     FooterArea,
-    OtherNews
   },
   data() {
     return {
-      tab: "newest",
+      tab: "home",
       show_drawer: false,
-
-      title: null || String(),
-      preview_img: null || String(),
-      author: null || String(),
-      text: null || String(),
-      date: null || String(),
-
-      teamData: ref<Record<string, Author>>({}),
-      articleData: ref<Record<string, Article[]>>({}),
-
-      width: window.innerWidth
+      searchText: ''
     };
   },
   methods: {
     redirectToHome() {
       window.location.href = "/";
     },
-    openArcticle(arcticleData: Article) {
-      this.tab = 'viewArticle';
-      this.title = arcticleData.title.toString() ?? 'error';
-      this.preview_img = arcticleData.preview_img.toString() ?? 'error';
-      this.author = arcticleData.author.toString() ?? 'error';
-      this.text = arcticleData.text.toString() ?? 'error';
-      this.date = arcticleData.date.toString() ?? 'error';
-    }
+    search() {
+      window.location.href = `/search.html?s=${this.searchText}`
+    },
+    openHtml(href: string) {
+      window.location.href = href;
+    },
   },
 };
 </script>
@@ -111,6 +68,11 @@ export default {
 
       <v-navigation-drawer color="surface" v-model="show_drawer" location="right">
         <v-list density="comfortable">
+          <v-list-item lines="one" height="50px" variant="flat" width="100%" ripple density="compact">
+            <v-text-field style="margin-top: 20px;" append-icon="mdi-magnify" label="Suche" clearable variant="underlined"
+              v-model="searchText" flat density="compact" @click:append="search()" />
+          </v-list-item>
+
           <v-list-item lines="one" @click="tab = 'newest'" height="50px" variant="flat" append-icon="mdi-newspaper" ripple
             density="comfortable">
             Neuste
@@ -136,8 +98,8 @@ export default {
             International
           </v-list-item>
 
-          <v-list-item lines="one" @click="tab = 'team'" height="50px" variant="flat" append-icon="mdi-account-supervisor"
-            ripple density="comfortable">
+          <v-list-item lines="one" @click="openHtml('redaktion.html')" height="50px" variant="flat"
+            append-icon="mdi-account-supervisor" ripple density="comfortable">
             Redaktion
           </v-list-item>
         </v-list>
@@ -145,7 +107,7 @@ export default {
 
       <v-tabs v-model="tab" fixed-tabs height="40px" align-tabs="center" center-active density="compact"
         next-icon="mdi-chevron-right" prev-icon="mdi-chevron-left" show-arrows>
-        <v-tab value="newest"> Neuste </v-tab>
+        <v-tab value="home"> Start </v-tab>
 
         <v-tab value="frankfurt"> Frankfurt </v-tab>
 
@@ -159,101 +121,15 @@ export default {
 
     <v-main>
       <v-window v-model="tab">
-        <v-window-item value="newest">
-          <v-row>
-            <v-list :width="width > 900 ? '80%' : '100%'" color="background" bg-color="background">
-              <v-list-item color="background" v-bind:key="arcticle.title" ripple
-                v-for="(arcticle, index) in articleData.newest">
-                <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
-                  :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
-                  :url="'/index.html?t=newest&id=' + index" />
-              </v-list-item>
-            </v-list>
-            <OtherNews :width="width > 900 ? '16%' : '0%'" v-if="width > 900" />
-          </v-row>
-        </v-window-item>
+        <v-window-item value="home"></v-window-item>
 
-        <v-window-item value="frankfurt">
-          <v-row>
-            <v-list :width="width > 900 ? '80%' : '100%'" color="background" bg-color="background">
-              <v-list-item color="background" v-bind:key="arcticle.title" ripple
-                v-for="(arcticle, index) in articleData?.frankfurt">
-                <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
-                  :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
-                  :url="'/index.html?t=international&id=' + index" />
-              </v-list-item>
-            </v-list>
-            <OtherNews :width="width > 900 ? '16%' : '0%'" v-if="width > 900" />
-          </v-row>
-        </v-window-item>
+        <v-window-item value="frankfurt"></v-window-item>
 
-        <v-window-item value="wirtschaft">
-          <v-row>
-            <v-list :width="width > 900 ? '80%' : '100%'" color="background" bg-color="background">
-              <v-list-item color="background" v-bind:key="arcticle.title" ripple
-                v-for="(arcticle, index) in articleData?.wirtschaft">
-                <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
-                  :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
-                  :url="'/index.html?t=international&id=' + index" />
-              </v-list-item>
-            </v-list>
-            <OtherNews :width="width > 900 ? '16%' : '0%'" v-if="width > 900" />
-          </v-row>
-        </v-window-item>
+        <v-window-item value="wirtschaft"></v-window-item>
 
-        <v-window-item value="usa">
-          <v-row>
-            <v-list :width="width > 900 ? '80%' : '100%'" color="background" bg-color="background">
-              <v-list-item color="background" v-bind:key="arcticle.title" ripple
-                v-for="(arcticle, index) in articleData?.usa">
-                <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
-                  :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
-                  :url="'/index.html?t=international&id=' + index" />
-              </v-list-item>
-            </v-list>
-            <OtherNews :width="width > 900 ? '16%' : '0%'" v-if="width > 900" />
-          </v-row>
-        </v-window-item>
+        <v-window-item value="usa"></v-window-item>
 
-        <v-window-item value="international">
-          <v-row>
-            <v-list :width="width > 900 ? '80%' : '100%'" color="background" bg-color="background">
-              <v-list-item color="background" v-bind:key="arcticle.title" ripple
-                v-for="(arcticle, index) in articleData?.international">
-                <ArticlePreview :date="arcticle.date" :title="arcticle.title" :preview_img="arcticle.preview_img"
-                  :author="arcticle.author" :preview_text="arcticle.text.substring(0, 50) + '...'" :text="arcticle.text"
-                  :url="'/index.html?t=international&id=' + index" />
-              </v-list-item>
-            </v-list>
-            <OtherNews :width="width > 900 ? '16%' : '0%'" v-if="width > 900" />
-          </v-row>
-        </v-window-item>
-
-        <v-window-item value="viewArticle"
-          :style="{ display: tab == 'viewArticle' ? 'flex' : 'none', justifyContent: 'center', width: '100%', minHeight: '100%' }">
-          <ArticleView :text="text" :title="title" :date="date" :preview_img="preview_img" :author="author" />
-        </v-window-item>
-
-        <v-window-item value="team">
-          <v-container fluid>
-            <v-row dense :style="{ gap: '40px', alignItems: 'center', justifyContent: 'center' }">
-              <v-card color="primary" width="400" v-bind:key="teamMember.name.toString()" v-for="teamMember in teamData">
-                <v-img width="400" aspect-ratio="1/1" :src="teamMember.img.toString()" />
-                <v-card-title>
-                  {{ teamMember.name }}
-                </v-card-title>
-
-                <v-card-subtitle>
-                  {{ teamMember.job }}
-                </v-card-subtitle>
-
-                <v-card-text>
-                  {{ teamMember.about }}
-                </v-card-text>
-              </v-card>
-            </v-row>
-          </v-container>
-        </v-window-item>
+        <v-window-item value="international"></v-window-item>
       </v-window>
     </v-main>
   </v-app>

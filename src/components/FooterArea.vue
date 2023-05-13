@@ -10,6 +10,7 @@ export default {};
     </div>
     <div dir="d2">
       <a href="/">Startseite</a>
+      <a href="/search.html">Suche</a>
     </div>
   </footer>
 </template>
