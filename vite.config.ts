@@ -16,7 +16,9 @@ export default defineConfig({
       input: {
         index: './index.html',
         search: './search.html',
-        article: './article.html'
+        article: './article.html',
+        redaktion: './redaktion.html',
+        create: './create.html'
       },
       output: {
         manualChunks: undefined // Optional: Deaktiviert manuelle Chunk-Erstellung
