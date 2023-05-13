@@ -24,11 +24,16 @@ export default {
         this.search(searchText);
     },
     methods: {
+        openArticle(url: string) {
+            window.location.href = url;
+        },
         search(searchText?: string | undefined) {
             var sText: string = searchText ?? '';
             if (!searchText) {
                 sText = this.searchText;
             }
+
+            this.articleData = [];
 
             fetch('/articleData.json').then((res: Response) => res.json()).then((data: { [key: string]: Article[] }) => {
                 try {
@@ -42,12 +47,12 @@ export default {
                     keys.forEach((key: string) => {
                         data[key].forEach((article: Article) => {
                             if (article && article.title) {
-                                if (article.title.search(sText)) {
+                                if (article.title.includes(sText)) {
                                     this.articleData.push(article);
                                 }
                             } else {
                                 this.isError = true;
-                                this.error_msg = "Keine Ergebnisse entsprechen der Suche.";
+                                this.error_msg = "Es ist ein Fehler bei der Suche aufgetreten.";
                             }
                         });
                     });
@@ -57,7 +62,7 @@ export default {
                     }
                 } catch (err: Error | any) {
                     this.isError = true;
-                    this.error_msg = "Keine Ergebnisse entsprechen der Suche.";
+                    this.error_msg = "Fehler beim Laden der Daten.";
                     console.error(err);
                 }
             });
@@ -82,8 +87,8 @@ export default {
                         :text="error_msg" />
 
                     <v-list width="100%" color="background" bg-color="background">
-                        <v-list-item color="background" v-bind:key="index" ripple v-for="(arcticle, index) in articleData">
-                            <ArticlePreview :author="arcticle.author" :date="arcticle.date" />
+                        <v-list-item @click="openArticle(article.url)" color="background" v-bind:key="index" ripple v-for="(article, index) in articleData">
+                            <ArticlePreview :title="article.title" :preview_img="article.preview_img" :preview_text="article.preview_text" :date="article.date" :url="article.url" />
                         </v-list-item>
                     </v-list>
                 </v-row>

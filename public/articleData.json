@@ -1,14 +1,21 @@
 {
   "frankfurt": [
-    
+    {
+      "title": "Test article",
+      "url": "/article.html?t=frankfurt&id=0",
+      "author": "Christian F",
+      "date": "13-05-2023",
+      "content": [
+        {
+          "type": "plain",
+          "text": "Hallo Welt"
+        }
+      ],
+      "preview_img": "",
+      "preview_text": ""
+    }
   ],
-  "wirtschaft": [
-   
-  ],
-  "usa": [
-    
-  ],
-  "international": [
-   
-  ]
+  "wirtschaft": [],
+  "usa": [],
+  "international": []
 }

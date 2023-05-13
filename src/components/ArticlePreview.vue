@@ -2,11 +2,9 @@
 export default {
     props: {
         title: String,
-        preview_img: String,
-        author: String,
+        preview_img: String || undefined,
         preview_text: String,
         date: String,
-        text: String,
         url: String
     },
     data() {
@@ -35,14 +33,13 @@ export default {
     <v-card color="background" class="article-preview" @click="openArticle()" density="compact" border="0" elevation="0" >
         <v-divider color="surface" thickness="2"></v-divider>
         <v-row >
-            <v-col cols="12" sm="4"
+            <v-col v-if="preview_img" cols="12" sm="4"
                 :style="{ maxWidth: maxWidth, display: 'inline-flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start' }">
                 <v-img :height="heigth" :width="width" :src="preview_img" cover />
             </v-col>
             <v-col cols="12" sm="8">
                 <v-card-title class="headline">{{ title }}</v-card-title>
                 <v-card-subtitle class="metadata">
-                    <h4>{{ author }}</h4>
                     <p> {{ date }} </p>
                 </v-card-subtitle>
                 <v-card-text class="preview-text">{{ preview_text }}</v-card-text>
