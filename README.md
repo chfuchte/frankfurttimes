@@ -1,5 +1,7 @@
 # Frankfurt Times Vue3 | Vite Client
 
+:warning: **@Barsch2006 ist nicht für den entgültigen Inhalt verantwortlich** :warning:
+
 ## Folder Structure
 
 The folder to add, edit and delete data and articles is the `public` folder.
