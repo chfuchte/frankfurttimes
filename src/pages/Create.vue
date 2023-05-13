@@ -1,6 +1,7 @@
 <script lang="ts">
 import FooterArea from '@/components/FooterArea.vue'
 import LinkHeaderArea from '@/components/LinkHeaderArea.vue'
+import { type Article } from '@/types/article'
 
 export default {
     components: { FooterArea, LinkHeaderArea },
@@ -11,7 +12,12 @@ export default {
             title: '',
             img: '',
             date: '',
-            author: ''
+            author: '',
+            url: '',
+            preview_text: '',
+            content: [],
+
+            output: ''
         }
     },
     created() {
@@ -21,7 +27,19 @@ export default {
     },
     methods: {
         build() {
+            let output: Article = {
+                title: this.title,
+                date: this.date,
+                img: this.img,
+                author: this.author,
+                preview_text: this.preview_text,
+                url: this.url,
+                content: this.content
+            };
+
             // todo
+            this.output = JSON.stringify(output).toString();
+            this.tab = 'output';
         }
     }
 }
@@ -60,12 +78,16 @@ export default {
 
                         <v-card-text>
                             <v-container>
-
+                                <!-- todo -->
                             </v-container>
+
+                            <v-text-field v-model="url" variant="underlined" placeholder="URL" hint="/article.html?t=TAB&id=ID" />
+                            <v-text-field v-model="preview_text" variant="underlined" placeholder="Preview Text" hint="Kurzer Text des Artikels als Preview" />
                         </v-card-text>
 
-                        <v-card-actions style="display: inline-flex; align-items: end; justify-content: center; flex-direction: row; width: 100%;">
-                            <v-btn variant="tonal" @click="build()">
+                        <v-card-actions
+                            style="display: inline-flex; align-items: end; justify-content: center; flex-direction: row; width: 100%;">
+                            <v-btn variant="outlined" color="info" @click="build()">
                                 Fertigstellen
                             </v-btn>
                         </v-card-actions>
@@ -73,7 +95,29 @@ export default {
                 </v-window-item>
 
                 <v-window-item value="output">
-                    
+                    <v-card :width="width" height="auto" color="background" border="0" elevation="3"
+                        style="padding-bottom: 20px;">
+                        <v-card-title>
+                            Output
+                        </v-card-title>
+
+                        <v-card-text>
+                            <v-divider></v-divider>
+
+                            {{ output }}
+
+                            <v-divider></v-divider>
+                        </v-card-text>
+
+                        <v-divider></v-divider>
+
+                        <v-card-actions
+                            style="display: inline-flex; align-items: end; justify-content: center; flex-direction: row; width: 100%;">
+                            <v-btn variant="outlined" color="info" @click="tab = 'edit'">
+                                Zurück
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
                 </v-window-item>
             </v-window>
         </v-main>
