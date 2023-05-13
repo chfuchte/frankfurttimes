@@ -9,29 +9,16 @@
       "content": [
         {
           "type": "plain",
-          "text": "Hallo Welt"
-        },
-        {
-          "type": "carousel",
-          "carousel_srcs": [
-            "/skylineLogo.png",
-            "/favicon.png"
-          ],
-          "carousel_alts": [
-            "Logo",
-            "favicon"
-          ]
+          "text": "Der geplante Warnstreik bei der Bahn ist vorerst abgewendet. Das Unternehmen und die Gewerkschaft EVG haben nach ARD-Informationen einem verpflichtenden Vergleich zugestimmt. Was das für Bahnkunden bedeutet, ist noch unklar. \n Bei der Deutschen Bahn wird es in den kommenden Tagen nun doch erst mal keinen Warnstreik geben. Nach Informationen der ARD haben sowohl die Eisenbahn- und Verkehrsgewerkschaft (EVG) als auch die Bahn einem verpflichtenden Vergleich zugestimmt, den das Arbeitsgericht in Frankfurt vorgelegt hatte. Ein Streik in der kommenden Woche ist damit aber nicht ausgeschlossen. \n Die zuständige Richterin hatte den Verlgeich laut ARD-Informationen vorgeschlagen und mehrfach angedeutet, sie habe Zweifel an der Rechtmäßigkeit des angekündigten Streiks. Die EVG laufe Gefahr, vor Gericht zu unterliegen, wenn sie dem Vergleich nicht zustimme. \n Unklar, ob es dennoch Behinderungen geben könnte \n Die EVG erklärte demnach, sie verzichte auf den von Sonntagabend bis Dienstagnacht geplanten Ausstand. Noch ist unklar, ob es trotzdem zu Ausfällen oder Behinderungen kommen wird und was es für umgetauschte Tickets bedeutet. Philipp Nagl, Chef der DB Netz AG, sagte: 'Wir werden alles geben, um unseren Kundinnen und Kunden einen möglichst regulären Verkehr anzubieten.' Die Planungen für Montag und Dienstag würden sofort aufgenommen. Am Sonntag würden Details bekannt gegeben, inwieweit der Betrieb regulär laufen könne. Nagl geht von einem 'weitgehend normalen Betrieb' aus."
         },
         {
           "type": "src",
           "srcs": [
-            "/favicon.png",
-            "/index.html"
+            "https://www.tagesschau.de/eilmeldung/bahn-evg-vergleich-warnstreik-abgewendet-100.html"
           ]
         }
       ],
-      "preview_img": "",
-      "preview_text": ""
+      "preview_text": "Warnstreik bei der Bahn ist vorerst abgewendet. Das Unternehmen und die Gewerkschaft EVG haben nach ARD -Informationen einem verpflichtenden Vergleich zugestimmt. Was das für Bahnkunden bedeutet, ist noch unklar."
     }
   ],
   "wirtschaft": [],

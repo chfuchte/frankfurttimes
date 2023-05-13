@@ -1,4 +1,6 @@
 <script lang="ts">
+import { renderText } from './renderText';
+
 export default {
     props: {
         title: String,
@@ -24,16 +26,17 @@ export default {
     methods: {
         openArticle() {
             window.location.href = this.url ?? window.location.href;
-        }
+        },
+        renderText
     }
 }
 </script>
 
 <template>
-    <v-card color="background" class="article-preview" @click="openArticle()" density="compact" border="0" elevation="0" >
+    <v-card color="background" @click="openArticle()" density="compact" border="0" elevation="0">
         <v-divider color="surface" thickness="2"></v-divider>
-        <v-row >
-            <v-col v-if="preview_img" cols="12" sm="4"
+        <v-row>
+            <v-col v-show="preview_img != undefined" cols="12" sm="4"
                 :style="{ maxWidth: maxWidth, display: 'inline-flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start' }">
                 <v-img :height="heigth" :width="width" :src="preview_img" cover />
             </v-col>
@@ -42,7 +45,7 @@ export default {
                 <v-card-subtitle class="metadata">
                     <p> {{ date }} </p>
                 </v-card-subtitle>
-                <v-card-text class="preview-text">{{ preview_text }}</v-card-text>
+                <v-card-text class="preview-text" :v-html="renderText(preview_text ?? '')"></v-card-text>
             </v-col>
         </v-row>
         <v-divider color="surface" thickness="2"></v-divider>

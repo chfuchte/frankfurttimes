@@ -5,7 +5,6 @@ interface Article {
     date: string,
     img?: string,
     content: ArticlePart[],
-    preview_img?: string,
     preview_text: string
 }
 

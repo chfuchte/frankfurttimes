@@ -88,7 +88,7 @@ export default {
 
                     <v-list width="100%" color="background" bg-color="background">
                         <v-list-item @click="openArticle(article.url)" color="background" v-bind:key="index" ripple v-for="(article, index) in articleData">
-                            <ArticlePreview :title="article.title" :preview_img="article.preview_img" :preview_text="article.preview_text" :date="article.date" :url="article.url" />
+                            <ArticlePreview :title="article.title" :preview_img="article.img" :preview_text="article.preview_text" :date="article.date" :url="article.url" />
                         </v-list-item>
                     </v-list>
                 </v-row>

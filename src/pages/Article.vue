@@ -2,6 +2,7 @@
 import LinkHeaderArea from '@/components/LinkHeaderArea.vue';
 import FooterArea from '@/components/FooterArea.vue';
 import { type Article, type ArticlePart } from '@/types/article'
+import { renderText } from '@/components/renderText';
 
 export default {
     components: {
@@ -60,6 +61,7 @@ export default {
                 this.error = err.toString();
             }
         },
+        renderText,
         async copyLink() {
             try {
                 await navigator.clipboard.writeText(`${window.location.protocol}//${window.location.hostname}:${window.location.port}${this.url}`);
@@ -95,7 +97,7 @@ export default {
 
         <v-main :style="{ display: 'flex', justifyContent: 'center', width: '100%', minHeight: '100vh' }">
             <v-dialog :width="width == '75%' ? '400px' : '80%'" v-model="shared">
-                <v-card color="info">
+                <v-card color="surface">
                     <v-card-title
                         style=" width: 100%; display: inline-flex; align-items: center; justify-content: space-between">
                         Artikel Teilen
@@ -103,7 +105,7 @@ export default {
                     </v-card-title>
 
                     <v-card-text>
-                        <v-btn @click="copyLink()" color="background" elevation="0" border="0" icon="mdi-content-copy" />
+                        <v-btn @click="copyLink()" color="primary" elevation="0" border="0" icon="mdi-content-copy" />
                     </v-card-text>
 
                     <v-card-actions>
@@ -141,9 +143,9 @@ export default {
 
                 <v-card-text>
                     <v-container>
-                        <v-row v-bind:key="index" v-for="(c, index) in content">
+                        <v-row style="margin-bottom: 2em;" v-bind:key="index" v-for="(c, index) in content">
                             <article v-if="c.type == 'plain'">
-                                {{ c.text }}
+                                <p v-html="renderText(c.text ?? '')"></p>
                             </article>
 
                             <v-carousel v-if="c.type == 'carousel'">

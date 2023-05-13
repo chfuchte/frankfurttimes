@@ -26,9 +26,9 @@ export default {
     <v-app>
         <LinkHeaderArea />
 
-        <v-main :style="{ display: 'flex', justifyContent: 'center', width: '100%' }">
+        <v-main :style="{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', width: '100%' }">
             <v-container fluid>
-                <v-row dense :style="{ gap: '40px', alignItems: 'center', justifyContent: 'center' }">
+                <v-row dense :style="{ gap: '40px', justifyContent: 'center' }">
                     <v-card color="primary" width="400" v-bind:key="teamMember.name.toString()"
                         v-for="teamMember in teamData">
                         <v-img width="400" aspect-ratio="1/1" :src="teamMember.img.toString()" />
