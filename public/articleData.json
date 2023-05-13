@@ -6,6 +6,7 @@
       "author": "Christian F",
       "date": "13-05-2023",
       "img": "/favicon.png",
+      "preview_text": "Warnstreik bei der Bahn ist vorerst abgewendet. Das Unternehmen und die Gewerkschaft EVG haben nach ARD -Informationen einem verpflichtenden Vergleich zugestimmt. Was das für Bahnkunden bedeutet, ist noch unklar.",
       "content": [
         {
           "type": "plain",
@@ -17,8 +18,7 @@
             "https://www.tagesschau.de/eilmeldung/bahn-evg-vergleich-warnstreik-abgewendet-100.html"
           ]
         }
-      ],
-      "preview_text": "Warnstreik bei der Bahn ist vorerst abgewendet. Das Unternehmen und die Gewerkschaft EVG haben nach ARD -Informationen einem verpflichtenden Vergleich zugestimmt. Was das für Bahnkunden bedeutet, ist noch unklar."
+      ]
     }
   ],
   "wirtschaft": [],

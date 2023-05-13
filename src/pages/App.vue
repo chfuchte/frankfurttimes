@@ -2,6 +2,7 @@
 import { type Article } from '@/types/article';
 import FooterArea from '@/components/FooterArea.vue';
 import ArticlePreview from '@/components/ArticlePreview.vue';
+import { ref } from 'vue';
 
 export default {
   mounted() {
@@ -28,7 +29,17 @@ export default {
     const folder: string = params.get('t') ?? '';
     if (articleId && folder) {
       this.openHtml(`/article.html?t=${folder}&id=${articleId}`)
+      return;
     }
+
+    // fetch Data
+
+    fetch('/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
+      this.articleData = data;
+    }).catch(() => {
+      this.error = "Fehler mein Laden der Artikel";
+      this.isError = true;
+    });
   },
   components: {
     ArticlePreview,
@@ -38,7 +49,11 @@ export default {
     return {
       tab: "home",
       show_drawer: false,
-      searchText: ''
+      searchText: '',
+      articleData: ref<Record<string, Article[]>>({}),
+      width: window.innerWidth,
+      isError: false,
+      error: ''
     };
   },
   methods: {
@@ -120,16 +135,64 @@ export default {
     </header>
 
     <v-main>
+      <v-dialog :width="width >= 700 ? '400px' : '80%'" v-model="isError" close-on-content-click>
+        <v-alert closable title="Ein Fehler ist aufgetreten" :text="error" type="error" variant="tonal" v-if="isError" />
+      </v-dialog>
+
       <v-window v-model="tab">
         <v-window-item value="home"></v-window-item>
 
-        <v-window-item value="frankfurt"></v-window-item>
+        <v-window-item value="frankfurt">
+          <v-list variant="text" :rounded="0" density="compact" border="0" bg-color="background" color="background" elevation="0">
+            <v-list-item elevation="0" border="0" v-bind:key="index" v-for="(article, index) in articleData.frankfurt">
+              <ArticlePreview
+              :title="article.title"
+              :preview_img="article.img"
+              :preview_text="article.preview_text"
+              :date="article.date"
+              :url="article.url" />
+            </v-list-item>
+          </v-list>
+        </v-window-item>
 
-        <v-window-item value="wirtschaft"></v-window-item>
+        <v-window-item value="wirtschaft">
+          <v-list bg-color="background" color="background" elevation="0">
+            <v-list-item elevation="0" border="0" v-bind:key="index" v-for="(article, index) in articleData.wirtschaft">
+              <ArticlePreview 
+              :title="article.title"
+              :preview_img="article.img"
+              :preview_text="article.preview_text"
+              :date="article.date"
+              :url="article.url" />
+            </v-list-item>
+          </v-list>
+        </v-window-item>
 
-        <v-window-item value="usa"></v-window-item>
+        <v-window-item value="usa">
+          <v-list bg-color="background" color="background" elevation="0">
+            <v-list-item elevation="0" border="0" v-bind:key="index" v-for="(article, index) in articleData.usa">
+              <ArticlePreview 
+              :title="article.title"
+              :preview_img="article.img"
+              :preview_text="article.preview_text"
+              :date="article.date"
+              :url="article.url" />
+            </v-list-item>
+          </v-list>
+        </v-window-item>
 
-        <v-window-item value="international"></v-window-item>
+        <v-window-item value="international">
+          <v-list bg-color="background" color="background" elevation="0">
+            <v-list-item elevation="0" border="0" v-bind:key="index" v-for="(article, index) in articleData.international">
+              <ArticlePreview 
+              :title="article.title"
+              :preview_img="article.img"
+              :preview_text="article.preview_text"
+              :date="article.date"
+              :url="article.url" />
+            </v-list-item>
+          </v-list>
+        </v-window-item>
       </v-window>
     </v-main>
   </v-app>
