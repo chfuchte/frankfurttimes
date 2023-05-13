@@ -70,6 +70,9 @@ export default {
                 this.isError = true;
                 this.error = err.toString();
             }
+        },
+        getURL() {
+            return `${window.location.protocol}//${window.location.hostname}:${window.location.port}${this.url}`;
         }
     },
     data() {
@@ -105,7 +108,8 @@ export default {
                     </v-card-title>
 
                     <v-card-text>
-                        <v-btn @click="copyLink()" color="primary" elevation="0" border="0" icon="mdi-content-copy" />
+                        <v-btn @click="copyLink()" title="Link kopieren" color="primary" elevation="0" border="0" icon="mdi-content-copy" />
+                        <v-btn :href="'whatsapp://send?text=' + getURL()" title="Via WhatsApp teilen" color="primary" elevation="0" border="0" icon="mdi-whatsapp" />
                     </v-card-text>
 
                     <v-card-actions>
