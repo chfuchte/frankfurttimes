@@ -10,6 +10,24 @@
         {
           "type": "plain",
           "text": "Hallo Welt"
+        },
+        {
+          "type": "carousel",
+          "carousel_srcs": [
+            "/skylineLogo.png",
+            "/favicon.png"
+          ],
+          "carousel_alts": [
+            "Logo",
+            "favicon"
+          ]
+        },
+        {
+          "type": "src",
+          "srcs": [
+            "/favicon.png",
+            "/index.html"
+          ]
         }
       ],
       "preview_img": "",

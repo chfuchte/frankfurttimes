@@ -1,4 +1,4 @@
-a<script lang="ts">
+<script lang="ts">
 import LinkHeaderArea from '@/components/LinkHeaderArea.vue';
 import FooterArea from '@/components/FooterArea.vue';
 import { type Article, type ArticlePart } from '@/types/article'
@@ -147,10 +147,12 @@ export default {
                             </article>
 
                             <v-carousel v-if="c.type == 'carousel'">
-                                <v-carousel-item v-bind:key="index" v-for="(img_src, index) in c.carousel_srcs " :src="img_src" :alt="c.carousel_alts ? c.carousel_alts[index] : ''" cover></v-carousel-item>
+                                <v-carousel-item v-bind:key="index" v-for="(img_src, index) in c.carousel_srcs "
+                                    :src="img_src" :alt="c.carousel_alts ? c.carousel_alts[index] : ''"></v-carousel-item>
                             </v-carousel>
 
-                            <article v-if="c.type == 'src'">
+                            <article style="display: flex; flex-direction: row; width: 100%; gap:10px;"
+                                v-if="c.type == 'src'">
                                 <a :href="src" v-for="(src, index) in c.srcs" v-bind:key="index">
                                     {{ src }}
                                 </a>
