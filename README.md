@@ -36,3 +36,11 @@ The folder to add, edit and delete data and articles is the `public` folder.
    "international": []
 }
 ```
+
+## Functions
+
+In the `text` of an article and in the `preview_text` you have to option to use:
+
+- `**<TEXT>**` to make your text bold
+- `*<TEXT>*` to make your text italic
+- `__<TEXT>__` to underline your text
