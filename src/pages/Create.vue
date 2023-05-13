@@ -1,7 +1,8 @@
 <script lang="ts">
 import FooterArea from '@/components/FooterArea.vue'
 import LinkHeaderArea from '@/components/LinkHeaderArea.vue'
-import { type Article } from '@/types/article'
+import { type ArticlePart, type Article } from '@/types/article'
+import { renderText } from '@/components/renderText';
 
 export default {
     components: { FooterArea, LinkHeaderArea },
@@ -15,7 +16,7 @@ export default {
             author: '',
             url: '',
             preview_text: '',
-            content: [],
+            content: Array<ArticlePart>(),
 
             output: ''
         }
@@ -26,6 +27,16 @@ export default {
         }
     },
     methods: {
+        renderText,
+        addText() {
+            // todo
+        },
+        addCarousel() {
+            // todo
+        },
+        addSources() {
+            // todo
+        },
         build() {
             let output: Article = {
                 title: this.title,
@@ -34,10 +45,10 @@ export default {
                 author: this.author,
                 preview_text: this.preview_text,
                 url: this.url,
-                content: this.content
+                content: this.content,
             };
 
-            // todo
+            // ? todo
             this.output = JSON.stringify(output).toString();
             this.tab = 'output';
         }
@@ -78,11 +89,44 @@ export default {
 
                         <v-card-text>
                             <v-container>
-                                <!-- todo -->
+                                <v-row style="margin-bottom: 2em;" v-bind:key="index" v-for="(c, index) in content">
+                                    <article v-if="c.type == 'plain'">
+                                        <p v-html="renderText(c.text ?? '')"></p>
+                                    </article>
+
+                                    <v-carousel v-if="c.type == 'carousel'">
+                                        <v-carousel-item v-bind:key="index" v-for="(img_src, index) in c.carousel_srcs "
+                                            :src="img_src"
+                                            :alt="c.carousel_alts ? c.carousel_alts[index] : ''"></v-carousel-item>
+                                    </v-carousel>
+
+                                    <article style="display: flex; flex-direction: row; width: 100%; gap:10px;"
+                                        v-if="c.type == 'src'">
+                                        <a :href="src" v-for="(src, index) in c.srcs" v-bind:key="index">
+                                            {{ src }}
+                                        </a>
+                                    </article>
+                                </v-row>
                             </v-container>
 
-                            <v-text-field v-model="url" variant="underlined" placeholder="URL" hint="/article.html?t=TAB&id=ID" />
-                            <v-text-field v-model="preview_text" variant="underlined" placeholder="Preview Text" hint="Kurzer Text des Artikels als Preview" />
+                            <v-btn-group>
+                                <v-btn @click="addText()">
+                                    add Text
+                                </v-btn>
+
+                                <v-btn @click="addCarousel()">
+                                    add Carousel
+                                </v-btn>
+
+                                <v-btn @click="addSources()">
+                                    add Sources
+                                </v-btn>
+                            </v-btn-group>
+
+                            <v-text-field v-model="url" variant="underlined" placeholder="URL"
+                                hint="/article.html?t=TAB&id=ID" />
+                            <v-text-field v-model="preview_text" variant="underlined" placeholder="Preview Text"
+                                hint="Kurzer Text des Artikels als Preview" />
                         </v-card-text>
 
                         <v-card-actions
