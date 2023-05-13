@@ -72,7 +72,7 @@ export default {
             </v-list>
         </v-navigation-drawer>
 
-        <v-tabs fixed-tabs height="40px" align-tabs="center" center-active density="compact" next-icon="mdi-chevron-right"
+        <v-tabs class="navtabs" fixed-tabs height="40px" align-tabs="center" center-active density="compact" next-icon="mdi-chevron-right"
             prev-icon="mdi-chevron-left" show-arrows>
             <v-tab @click="setLocation('home')">Start</v-tab>
 
@@ -108,7 +108,7 @@ header h1 {
     font-size: 30px;
 }
 
-.v-tabs {
+.navtabs {
     top: 80px;
     z-index: 1008;
     position: fixed;
@@ -146,7 +146,7 @@ header img {
         margin-top: 100px;
     }
 
-    .v-tabs {
+    .navtabs {
         top: 60px;
     }
 
@@ -166,7 +166,7 @@ header img {
         display: none;
     }
 
-    .v-tabs {
+    .navtabs {
         display: none;
     }
 

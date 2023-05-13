@@ -124,7 +124,7 @@ export default {
             </v-dialog>
 
             <v-card :width="width" height="auto" color="background" border="0" elevation="3" style="padding-bottom: 100px;">
-                <v-img :src="img" v-if="img" cover />
+                <v-img :src="img" v-if="img" style="max-height: 40vh;" />
 
                 <v-card-title style="margin-top: 20px;">
                     <h1>{{ title }}</h1>

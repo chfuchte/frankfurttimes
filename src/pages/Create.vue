@@ -1,0 +1,95 @@
+<script lang="ts">
+import FooterArea from '@/components/FooterArea.vue'
+import LinkHeaderArea from '@/components/LinkHeaderArea.vue'
+
+export default {
+    components: { FooterArea, LinkHeaderArea },
+    data() {
+        return {
+            tab: 'edit',
+            width: '75%',
+            title: '',
+            img: '',
+            date: '',
+            author: ''
+        }
+    },
+    created() {
+        if (window.innerWidth <= 700) {
+            this.width = '100%'
+        }
+    },
+    methods: {
+        build() {
+            // todo
+        }
+    }
+}
+</script>
+
+<template>
+    <v-app>
+        <LinkHeaderArea />
+
+        <v-main :style="{ width: '100%' }">
+            <v-tabs align-tabs="center" fixed-tabs center-active color="background" bg-color="info" v-model="tab">
+                <v-tab value="edit">
+                    Edit
+                </v-tab>
+            </v-tabs>
+            <v-window :style="{ width: '100%', minHeight: '100vh' }" v-model="tab">
+                <v-window-item value="edit" style="width: 100%; height: 100%;">
+                    <v-card :width="width" height="auto" color="background" border="0" elevation="3"
+                        style="padding-bottom: 20px;">
+                        <v-img :src="img" v-if="img" style="max-height: 40vh;" />
+
+                        <v-card-title style="margin-top: 20px; flex-direction: column; display: flex;">
+                            <v-text-field v-model="img" variant="underlined" placeholder="Bild" />
+                            <v-text-field v-model="title" variant="underlined" placeholder="Titel" />
+                        </v-card-title>
+
+                        <v-divider color="primary" thickness="2"></v-divider>
+
+                        <v-card-title
+                            style="width: 100%; flex-direction: column, display: inline-flex; align-items: center; justify-content: space-between;">
+                            <v-text-field v-model="date" placeholder="Datum" variant="underlined" />
+                            <v-text-field v-model="author" placeholder="Autor" variant="underlined" />
+                        </v-card-title>
+
+                        <v-divider color="primary" thickness="1"></v-divider>
+
+                        <v-card-text>
+                            <v-container>
+
+                            </v-container>
+                        </v-card-text>
+
+                        <v-card-actions style="display: inline-flex; align-items: end; justify-content: center; flex-direction: row; width: 100%;">
+                            <v-btn variant="tonal" @click="build()">
+                                Fertigstellen
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-window-item>
+
+                <v-window-item value="output">
+                    
+                </v-window-item>
+            </v-window>
+        </v-main>
+    </v-app>
+
+    <FooterArea />
+</template>
+
+<style scoped>
+.v-window__container {
+    width: 100% !important;
+}
+
+.v-window-item {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+</style>
