@@ -12,11 +12,17 @@ export default {
     mounted() {
         fetch('https://frankfurtdynamics.github.io/frankfurt-times/teamData.json').then((res: Response) => res.json()).then((data: { [key: string]: Author }) => {
             this.teamData = data;
+        }).catch(() => {
+            this.error = "Fehler mein Laden der Artikel";
+            this.isError = true;
         });
     },
     data() {
         return {
             teamData: ref<Record<string, Author>>({}),
+            isError: false,
+            error: '',
+            width: window.innerWidth,
         }
     }
 }
@@ -28,6 +34,10 @@ export default {
 
         <v-main :style="{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', width: '100%' }">
             <v-container fluid>
+                <v-dialog :width="width >= 700 ? '400px' : '80%'" v-model="isError" close-on-content-click>
+                    <v-alert closable title="Ein Fehler ist aufgetreten" :text="error" type="error" variant="tonal"
+                        v-if="isError" />
+                </v-dialog>
                 <v-row dense :style="{ gap: '40px', justifyContent: 'center' }">
                     <v-card color="primary" width="400" v-bind:key="teamMember.name.toString()"
                         v-for="teamMember in teamData">

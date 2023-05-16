@@ -72,7 +72,7 @@ export default {
             </v-list>
         </v-navigation-drawer>
 
-        <v-tabs class="navtabs" fixed-tabs height="40px" align-tabs="center" center-active density="compact" next-icon="mdi-chevron-right"
+        <v-tabs hide-slider class="navtabs" fixed-tabs height="40px" align-tabs="center" center-active density="compact" next-icon="mdi-chevron-right"
             prev-icon="mdi-chevron-left" show-arrows>
             <v-tab @click="setLocation('home')">Start</v-tab>
 
