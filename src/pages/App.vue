@@ -88,9 +88,9 @@ export default {
               v-model="searchText" flat density="compact" @click:append="search()" />
           </v-list-item>
 
-          <v-list-item lines="one" @click="tab = 'newest'" height="50px" variant="flat" append-icon="mdi-newspaper" ripple
+          <v-list-item lines="one" @click="tab = 'home'" height="50px" variant="flat" append-icon="mdi-newspaper" ripple
             density="comfortable">
-            Neuste
+            Startseite
           </v-list-item>
 
           <v-list-item lines="one" @click="tab = 'frankfurt'" height="50px" variant="flat" append-icon="mdi-map-marker"
@@ -140,17 +140,63 @@ export default {
       </v-dialog>
 
       <v-window v-model="tab">
-        <v-window-item value="home"></v-window-item>
+        <v-window-item value="home">
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-card class="headline-card">
+                  <v-img src="" class="headline-image"></v-img>
+                  <v-card-text class="headline-text">
+                    <h2 class="headline-title"></h2>
+                    <p class="headline-description"></p>
+                    <v-btn class="headline-button"></v-btn>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="6">
+                <v-card class="news-card">
+                  <v-card-text>
+                    <h3 class="news-title"></h3>
+                    <p class="news-description"></p>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-card class="news-card">
+                  <v-card-text>
+                    <h3 class="news-title"></h3>
+                    <p class="news-description"></p>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-card class="news-card">
+                  <v-card-text>
+                    <h3 class="news-title"></h3>
+                    <p class="news-description"></p>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-card class="news-card">
+                  <v-card-text>
+                    <h3 class="news-title"></h3>
+                    <p class="news-description"></p>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-window-item>
 
         <v-window-item value="frankfurt">
-          <v-list variant="text" :rounded="0" density="compact" border="0" bg-color="background" color="background" elevation="0">
+          <v-list variant="text" :rounded="0" density="compact" border="0" bg-color="background" color="background"
+            elevation="0">
             <v-list-item elevation="0" border="0" v-bind:key="index" v-for="(article, index) in articleData.frankfurt">
-              <ArticlePreview
-              :title="article.title"
-              :preview_img="article.img"
-              :preview_text="article.preview_text"
-              :date="article.date"
-              :url="article.url" />
+              <ArticlePreview :title="article.title" :preview_img="article.img" :preview_text="article.preview_text"
+                :date="article.date" :url="article.url" />
             </v-list-item>
           </v-list>
         </v-window-item>
@@ -158,12 +204,8 @@ export default {
         <v-window-item value="wirtschaft">
           <v-list bg-color="background" color="background" elevation="0">
             <v-list-item elevation="0" border="0" v-bind:key="index" v-for="(article, index) in articleData.wirtschaft">
-              <ArticlePreview 
-              :title="article.title"
-              :preview_img="article.img"
-              :preview_text="article.preview_text"
-              :date="article.date"
-              :url="article.url" />
+              <ArticlePreview :title="article.title" :preview_img="article.img" :preview_text="article.preview_text"
+                :date="article.date" :url="article.url" />
             </v-list-item>
           </v-list>
         </v-window-item>
@@ -171,25 +213,18 @@ export default {
         <v-window-item value="usa">
           <v-list bg-color="background" color="background" elevation="0">
             <v-list-item elevation="0" border="0" v-bind:key="index" v-for="(article, index) in articleData.usa">
-              <ArticlePreview 
-              :title="article.title"
-              :preview_img="article.img"
-              :preview_text="article.preview_text"
-              :date="article.date"
-              :url="article.url" />
+              <ArticlePreview :title="article.title" :preview_img="article.img" :preview_text="article.preview_text"
+                :date="article.date" :url="article.url" />
             </v-list-item>
           </v-list>
         </v-window-item>
 
         <v-window-item value="international">
           <v-list bg-color="background" color="background" elevation="0">
-            <v-list-item elevation="0" border="0" v-bind:key="index" v-for="(article, index) in articleData.international">
-              <ArticlePreview 
-              :title="article.title"
-              :preview_img="article.img"
-              :preview_text="article.preview_text"
-              :date="article.date"
-              :url="article.url" />
+            <v-list-item elevation="0" border="0" v-bind:key="index"
+              v-for="(article, index) in articleData.international">
+              <ArticlePreview :title="article.title" :preview_img="article.img" :preview_text="article.preview_text"
+                :date="article.date" :url="article.url" />
             </v-list-item>
           </v-list>
         </v-window-item>
