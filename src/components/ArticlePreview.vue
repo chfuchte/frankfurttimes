@@ -1,6 +1,4 @@
-<script lang="ts">
-import { renderText } from './renderText';
-
+<script>
 export default {
     props: {
         title: {
@@ -9,7 +7,7 @@ export default {
         },
         preview_img: {
             type: String,
-            required: true
+            required: false
         },
         preview_text: {
             type: String,
@@ -22,66 +20,73 @@ export default {
         url: {
             type: String,
             required: true
-        },
-    },
-    data() {
-        return {
-            heigth: '250px',
-            width: 'auto',
-            maxWidth: '400px',
-            text: renderText(this.preview_text)
-        }
-    },
-    created() {
-        if (window.innerWidth <= 600) {
-            this.heigth = '';
-            this.width = '100%';
-            this.maxWidth = '600px';
         }
     },
     methods: {
         openArticle() {
-            window.location.href = this.url ?? window.location.href;
-        },
-        renderText
+            window.location.href = this.url || window.location.href;
+        }
     }
-}
+};
 </script>
 
 <template>
-    <v-card color="background" @click="openArticle()" density="compact" border="0" flat exact elevation="0">
-        <v-divider color="surface" thickness="2"></v-divider>
-        <v-row>
-            <v-col v-show="preview_img != undefined" cols="12" sm="4"
-                :style="{ maxWidth: maxWidth, display: 'inline-flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'flex-start' }">
-                <v-img :height="heigth" :width="width" :src="preview_img" />
-            </v-col>
-            <v-col cols="12" sm="8">
-                <v-card-title class="headline">{{ title }}</v-card-title>
-                <v-card-subtitle class="metadata">
-                    <p> {{ date }} </p>
-                </v-card-subtitle>
-                <v-card-text>
-                    <div v-html="text"></div>
-                </v-card-text>
-            </v-col>
-        </v-row>
-        <v-divider color="surface" thickness="2"></v-divider>
+    <v-card color="background" @click="openArticle()" density="compact" border="0" flat exact elevation="0"
+        class="custom-card">
+        <v-img :src="preview_img"></v-img>
+        <section>
+            <v-card-title>{{ title }}</v-card-title>
+            <v-card-subtitle>
+                <p>{{ date }}</p>
+            </v-card-subtitle>
+            <v-card-text class="text">{{ preview_text }}</v-card-text>
+        </section>
     </v-card>
 </template>
-
+  
 <style scoped>
 .v-card {
-    margin: 20px 5px;
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 160px;
 }
 
-.headline {
+.v-card-title {
+    margin-bottom: 0px;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 8px;
 }
 
-.metadata {
+.v-card-subtitle {
+    margin-top: -12px;
     font-size: 14px;
+    margin-bottom: 0;
+}
+
+.v-img {
+    width: 20%;
+    max-height: 100%;
+}
+
+section {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    width: 75%;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-top: 0px;
+    gap: 5px;
+}
+
+.text {
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: -10px;
 }
 </style>
+  

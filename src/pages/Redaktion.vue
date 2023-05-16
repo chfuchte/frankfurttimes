@@ -10,7 +10,7 @@ export default {
         FooterArea
     },
     mounted() {
-        fetch('/teamData.json').then((res: Response) => res.json()).then((data: { [key: string]: Author }) => {
+        fetch('https://frankfurtdynamics.github.io/frankfurt-times/teamData.json').then((res: Response) => res.json()).then((data: { [key: string]: Author }) => {
             this.teamData = data;
         });
     },

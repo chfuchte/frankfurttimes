@@ -35,7 +35,7 @@ export default {
 
             this.articleData = [];
 
-            fetch('/articleData.json').then((res: Response) => res.json()).then((data: { [key: string]: Article[] }) => {
+            fetch('https://frankfurtdynamics.github.io/frankfurt-times/articleData.json').then((res: Response) => res.json()).then((data: { [key: string]: Article[] }) => {
                 try {
                     const keys: string[] = [
                         "frankfurt",

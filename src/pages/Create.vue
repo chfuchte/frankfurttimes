@@ -18,7 +18,10 @@ export default {
             preview_text: '',
             content: Array<ArticlePart>(),
 
-            output: ''
+            output: '',
+
+            writenText: '',
+            showAddTextdata: false
         }
     },
     created() {
@@ -29,13 +32,14 @@ export default {
     methods: {
         renderText,
         addText() {
-            // todo
+            this.content.push({
+                type: "plain",
+                text: this.writenText
+            })
+            this.showAddTextdata = false;
         },
-        addCarousel() {
-            // todo
-        },
-        addSources() {
-            // todo
+        showAddText() {
+            this.showAddTextdata = true;
         },
         build() {
             let output: Article = {
@@ -93,35 +97,13 @@ export default {
                                     <article v-if="c.type == 'plain'">
                                         <p v-html="renderText(c.text ?? '')"></p>
                                     </article>
-
-                                    <v-carousel v-if="c.type == 'carousel'">
-                                        <v-carousel-item v-bind:key="index" v-for="(img_src, index) in c.carousel_srcs "
-                                            :src="img_src"
-                                            :alt="c.carousel_alts ? c.carousel_alts[index] : ''"></v-carousel-item>
-                                    </v-carousel>
-
-                                    <article style="display: flex; flex-direction: row; width: 100%; gap:10px;"
-                                        v-if="c.type == 'src'">
-                                        <a :href="src" v-for="(src, index) in c.srcs" v-bind:key="index">
-                                            {{ src }}
-                                        </a>
-                                    </article>
                                 </v-row>
                             </v-container>
 
-                            <v-btn-group>
-                                <v-btn @click="addText()">
-                                    add Text
-                                </v-btn>
-
-                                <v-btn @click="addCarousel()">
-                                    add Carousel
-                                </v-btn>
-
-                                <v-btn @click="addSources()">
-                                    add Sources
-                                </v-btn>
-                            </v-btn-group>
+                            <div style="display: inline-flex; flex-direction: row; align-items: center; gap: 20px;"
+                                density="compact">
+                                <v-btn variant="outlined" @click="showAddText()">add Text</v-btn>
+                            </div>
 
                             <v-text-field v-model="url" variant="underlined" placeholder="URL"
                                 hint="/article.html?t=TAB&id=ID" />
@@ -136,6 +118,22 @@ export default {
                             </v-btn>
                         </v-card-actions>
                     </v-card>
+
+                    <v-dialog v-model="showAddTextdata">
+                        <v-card color="secondary">
+                            <v-card-title>
+                                Neuen Text hinzufügen
+                            </v-card-title>
+                            <v-card-text>
+                                <v-textarea v-model="writenText" placeholder="Ihr Text"></v-textarea>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-btn @click="addText()">
+                                    Hinzufügen
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
                 </v-window-item>
 
                 <v-window-item value="output">

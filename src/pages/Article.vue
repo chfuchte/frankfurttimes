@@ -12,7 +12,7 @@ export default {
     beforeMount() {
         let articles: Record<string, Article[]>;
 
-        fetch('/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
+        fetch('https://frankfurtdynamics.github.io/frankfurt-times/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
             articles = data;
             // Überprüfe, ob Suchparameter vorhanden sind
             const params = new URLSearchParams(window.location.search);
@@ -150,18 +150,6 @@ export default {
                         <v-row style="margin-bottom: 2em;" v-bind:key="index" v-for="(c, index) in content">
                             <article v-if="c.type == 'plain'">
                                 <p v-html="renderText(c.text ?? '')"></p>
-                            </article>
-
-                            <v-carousel v-if="c.type == 'carousel'">
-                                <v-carousel-item v-bind:key="index" v-for="(img_src, index) in c.carousel_srcs "
-                                    :src="img_src" :alt="c.carousel_alts ? c.carousel_alts[index] : ''"></v-carousel-item>
-                            </v-carousel>
-
-                            <article style="display: flex; flex-direction: row; width: 100%; gap:10px;"
-                                v-if="c.type == 'src'">
-                                <a :href="src" v-for="(src, index) in c.srcs" v-bind:key="index">
-                                    {{ src }}
-                                </a>
                             </article>
                         </v-row>
                     </v-container>

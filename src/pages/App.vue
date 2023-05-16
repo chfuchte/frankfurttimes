@@ -34,7 +34,7 @@ export default {
 
     // fetch Data
 
-    fetch('/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
+    fetch('https://frankfurtdynamics.github.io/frankfurt-times/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
       this.articleData = data;
     }).catch(() => {
       this.error = "Fehler mein Laden der Artikel";

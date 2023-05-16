@@ -9,23 +9,13 @@ interface Article {
 }
 
 // plain = default Text
-// title_img = big image
-// carousel = an array of img_src for a v-carousel
-// src = a list of srces used in this article
-type ArticlePartType = "plain" | "carousel" | "src"
+type ArticlePartType = "plain"
 
 interface ArticlePart {
     type: ArticlePartType,
     
     // for type = "plain"
     text?: string,
-
-    // for type = "carousel"
-    carousel_srcs?: string[],
-    carousel_alts?: string[],
-
-    // for type = "src"
-    srcs?: string[]
 }
 
 export type {
