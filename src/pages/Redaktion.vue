@@ -10,7 +10,7 @@ export default {
         FooterArea
     },
     mounted() {
-        fetch('https://frankfurtdynamics.github.io/frankfurt-times/teamData.json').then((res: Response) => res.json()).then((data: { [key: string]: Author }) => {
+        fetch('https://raw.githubusercontent.com/FrankfurtDynamics/frankfurttimesarticle/master/teamData.json').then((res: Response) => res.json()).then((data: { [key: string]: Author }) => {
             this.teamData = data;
         }).catch(() => {
             this.error = "Fehler mein Laden der Artikel";
