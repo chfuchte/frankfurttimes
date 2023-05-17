@@ -268,7 +268,7 @@ export default {
                 </v-card>
               </v-col>
               <v-col cols="6" md="4">
-                <v-card height="400px"  color="background" border="none" elevation="1">
+                <v-card height="400px" color="background" border="none" elevation="1">
                   <v-card-title>
                     <h3>
                       Bahnbabo wird Bürgerbabo!
@@ -290,7 +290,7 @@ export default {
                 </v-card>
               </v-col>
               <v-col cols="12" md="4">
-                <v-card height="400px"  color="background" border="none" elevation="1">
+                <v-card height="400px" color="background" border="none" elevation="1">
                   <v-card-title>
                     <h3>
                       Bahnbabo wird Bürgerbabo!
