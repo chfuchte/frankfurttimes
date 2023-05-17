@@ -1,8 +1,9 @@
 <script lang="ts">
-import { type Article } from '@/types/article';
+import { type Article, type TitleArticle } from '@/types/article';
 import FooterArea from '@/components/FooterArea.vue';
 import ArticlePreview from '@/components/ArticlePreview.vue';
 import { ref } from 'vue';
+import { renderText } from '@/components/renderText';
 
 export default {
   mounted() {
@@ -40,6 +41,13 @@ export default {
       this.error = "Fehler mein Laden der Artikel";
       this.isError = true;
     });
+
+    fetch('https://raw.githubusercontent.com/FrankfurtDynamics/frankfurttimesarticle/master/titleData.json').then((res: Response) => res.json()).then((data: Record<string, TitleArticle>) => {
+      this.titleData = data;
+    }).catch(() => {
+      this.error = "Fehler mein Laden der Artikel";
+      this.isError = true;
+    });
   },
   components: {
     ArticlePreview,
@@ -53,13 +61,15 @@ export default {
       articleData: ref<Record<string, Article[]>>({}),
       width: window.innerWidth,
       isError: false,
-      error: ''
+      error: '',
+      titleData: ref<Record<string, TitleArticle>>({}),
     };
   },
   methods: {
     redirectToHome() {
       window.location.href = "/";
     },
+    renderText,
     search() {
       window.location.href = `/search.html?s=${this.searchText}`
     },
@@ -144,170 +154,120 @@ export default {
           <v-container>
             <v-row>
               <v-col cols="12" md="8">
-                <v-card href="/article.html" color="background" border="none" elevation="1">
-                  <v-parallax height="500"
-                    src="https://www.politico.eu/cdn-cgi/image/width=1160,height=773,quality=80,onerror=redirect,format=auto/wp-content/uploads/2023/05/09/GettyImages-1253266717-scaled.jpg" />
+                <v-card :href="titleData.mainTitle?.url" color="background" border="none" elevation="1">
+                  <v-parallax height="500" v-if="titleData.mainTitle?.img" :src="titleData.mainTitle?.img ?? ''" />
                   <v-card-title>
                     <h1>
-                      Bahnbabo wird Bürgerbabo!
+                      {{ titleData.mainTitle?.title }}
                     </h1>
                   </v-card-title>
                   <v-card-subtitle>
-                    17.05.2023
+                    {{ titleData.mainTitle?.date }}
                   </v-card-subtitle>
                   <v-card-text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
-                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
-                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
-                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
-                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
-                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
-                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
-                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
-                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
-                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
-                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
-                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
-                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
-                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
-                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
+                    <div v-html="renderText(titleData.mainTitle?.preview_text ?? '')"></div>
                   </v-card-text>
                 </v-card>
               </v-col>
               <v-col cols="12" md="4">
-                <v-card color="background" border="none" elevation="1">
-                  <v-img src="/favicon.png" height="30vh"></v-img>
+                <v-card :href="titleData.rightTitle?.url" color="background" border="none" elevation="1">
+                  <v-img :src="titleData.rightTitle?.img ?? ''" v-if="titleData.rightTitle?.img != undefined"
+                    height="30vh"></v-img>
                   <v-card-title>
                     <h3>
-                      Bahnbabo wird Bürgerbabo!
+                      {{ titleData.rightTitle?.title }}
                     </h3>
                   </v-card-title>
                   <v-card-subtitle>
-                    17.05.2023
+                    {{ titleData.rightTitle?.date }}
                   </v-card-subtitle>
                   <v-card-text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
-                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
-                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
-                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
-                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
-                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
-                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
-                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
+                    <div v-html="renderText(titleData.rightTitle?.preview_text ?? '')"></div>
                   </v-card-text>
                 </v-card>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="6" md="6">
-                <v-card height="550px" color="background" border="none" elevation="1">
-                  <v-img src="/favicon.png" height="300px"></v-img>
+                <v-card :href="titleData.leftSmallWithImg?.url" height="550px" color="background" border="none"
+                  elevation="1">
+                  <v-img :src="titleData.leftSmallWithImg?.img ?? ''" v-if="titleData.leftSmallWithImg?.img != undefined"
+                    height="300px"></v-img>
                   <v-card-title>
                     <h3>
-                      Bahnbabo wird Bürgerbabo!
+                      {{ titleData.leftSmallWithImg?.title }}
                     </h3>
                   </v-card-title>
                   <v-card-subtitle>
-                    17.05.2023
+                    {{ titleData.leftSmallWithImg?.date }}
                   </v-card-subtitle>
                   <v-card-text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
-                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
-                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
-                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
-                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
+                    <div v-html="renderText(titleData.leftSmallWithImg?.preview_text ?? '')"></div>
                   </v-card-text>
                 </v-card>
               </v-col>
               <v-col cols="6" md="6">
-                <v-card height="550px" color="background" border="none" elevation="1">
-                  <v-img src="/favicon.png" height="300px"></v-img>
+                <v-card :href="titleData.rightSmallWithImg?.url" height="550px" color="background" border="none"
+                  elevation="1">
+                  <v-img :src="titleData.rightSmallWithImg?.img ?? ''"
+                    v-if="titleData.rightSmallWithImg?.img != undefined" height="300px"></v-img>
                   <v-card-title>
                     <h3>
-                      Bahnbabo wird Bürgerbabo!
+                      {{ titleData.rightSmallWithImg?.title }}
                     </h3>
                   </v-card-title>
                   <v-card-subtitle>
-                    17.05.2023
+                    {{ titleData.rightSmallWithImg?.date }}
                   </v-card-subtitle>
                   <v-card-text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
-                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
-                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
-                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
-                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
-                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
-                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
-                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
+                    <div v-html="renderText(titleData.rightSmallWithImg?.preview_text ?? '')"></div>
                   </v-card-text>
                 </v-card>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="6" md="4">
-                <v-card height="400px" color="background" border="none" elevation="1">
+                <v-card :href="titleData.leftSmall?.url" height="400px" color="background" border="none" elevation="1">
                   <v-card-title>
                     <h3>
-                      Bahnbabo wird Bürgerbabo!
+                      {{ titleData.leftSmall?.title }}
                     </h3>
                   </v-card-title>
                   <v-card-subtitle>
-                    17.05.2023
+                    {{ titleData.leftSmall?.date }}
                   </v-card-subtitle>
                   <v-card-text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
-                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
-                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
-                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
-                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
-                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
-                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
-                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
+                    <div v-html="renderText(titleData.leftSmall?.preview_text ?? '')"></div>
                   </v-card-text>
                 </v-card>
               </v-col>
               <v-col cols="6" md="4">
-                <v-card height="400px" color="background" border="none" elevation="1">
+                <v-card :href="titleData.middleSmall?.url" height="400px" color="background" border="none" elevation="1">
                   <v-card-title>
                     <h3>
-                      Bahnbabo wird Bürgerbabo!
+                      {{ titleData.middleSmall?.title }}
                     </h3>
                   </v-card-title>
                   <v-card-subtitle>
-                    17.05.2023
+                    {{ titleData.middleSmall?.date }}
                   </v-card-subtitle>
                   <v-card-text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
-                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
-                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
-                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
-                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
-                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
-                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
-                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
+                    <div v-html="renderText(titleData.middleSmall?.preview_text ?? '')"></div>
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="12" md="4">
-                <v-card height="400px" color="background" border="none" elevation="1">
+              <v-col cols="6" md="4">
+                <v-card :href="titleData.rightSmall?.url" height="400px" color="background" border="none" elevation="1">
                   <v-card-title>
                     <h3>
-                      Bahnbabo wird Bürgerbabo!
+                      {{ titleData.rightSmall?.title }}
                     </h3>
                   </v-card-title>
                   <v-card-subtitle>
-                    17.05.2023
+                    {{ titleData.rightSmall?.date }}
                   </v-card-subtitle>
                   <v-card-text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
-                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
-                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
-                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
-                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
-                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
-                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
-                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
+                    <div v-html="renderText(titleData.rightSmall?.preview_text ?? '')"></div>
                   </v-card-text>
                 </v-card>
               </v-col>
@@ -453,5 +413,4 @@ header img {
   .v-navigation-drawer .v-list {
     margin-top: 60px;
   }
-}
-</style>
+}</style>

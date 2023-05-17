@@ -8,6 +8,14 @@ interface Article {
     preview_text: string
 }
 
+interface TitleArticle {
+    title: string,
+    url: string,
+    date: string,
+    img?: string,
+    preview_text: string
+}
+
 // plain = default Text
 type ArticlePartType = "plain"
 
@@ -20,5 +28,6 @@ interface ArticlePart {
 
 export type {
     Article,
-    ArticlePart
+    ArticlePart,
+    TitleArticle
 }
