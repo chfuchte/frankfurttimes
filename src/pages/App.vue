@@ -143,47 +143,171 @@ export default {
         <v-window-item value="home">
           <v-container>
             <v-row>
-              <v-col cols="12">
-                <v-card class="headline-card">
-                  <v-img src="" class="headline-image"></v-img>
-                  <v-card-text class="headline-text">
-                    <h2 class="headline-title"></h2>
-                    <p class="headline-description"></p>
-                    <v-btn class="headline-button"></v-btn>
+              <v-col cols="12" md="8">
+                <v-card href="/article.html" color="background" border="none" elevation="1">
+                  <v-parallax height="500"
+                    src="https://www.politico.eu/cdn-cgi/image/width=1160,height=773,quality=80,onerror=redirect,format=auto/wp-content/uploads/2023/05/09/GettyImages-1253266717-scaled.jpg" />
+                  <v-card-title>
+                    <h1>
+                      Bahnbabo wird Bürgerbabo!
+                    </h1>
+                  </v-card-title>
+                  <v-card-subtitle>
+                    17.05.2023
+                  </v-card-subtitle>
+                  <v-card-text>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
+                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
+                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
+                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
+                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
+                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
+                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
+                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
+                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
+                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
+                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
+                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
+                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
+                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
+                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-card color="background" border="none" elevation="1">
+                  <v-img src="/favicon.png" height="30vh"></v-img>
+                  <v-card-title>
+                    <h3>
+                      Bahnbabo wird Bürgerbabo!
+                    </h3>
+                  </v-card-title>
+                  <v-card-subtitle>
+                    17.05.2023
+                  </v-card-subtitle>
+                  <v-card-text>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
+                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
+                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
+                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
+                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
+                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
+                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
+                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
                   </v-card-text>
                 </v-card>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12" md="6">
-                <v-card class="news-card">
+              <v-col cols="6" md="6">
+                <v-card height="550px" color="background" border="none" elevation="1">
+                  <v-img src="/favicon.png" height="300px"></v-img>
+                  <v-card-title>
+                    <h3>
+                      Bahnbabo wird Bürgerbabo!
+                    </h3>
+                  </v-card-title>
+                  <v-card-subtitle>
+                    17.05.2023
+                  </v-card-subtitle>
                   <v-card-text>
-                    <h3 class="news-title"></h3>
-                    <p class="news-description"></p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
+                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
+                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
+                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
+                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="12" md="6">
-                <v-card class="news-card">
+              <v-col cols="6" md="6">
+                <v-card height="550px" color="background" border="none" elevation="1">
+                  <v-img src="/favicon.png" height="300px"></v-img>
+                  <v-card-title>
+                    <h3>
+                      Bahnbabo wird Bürgerbabo!
+                    </h3>
+                  </v-card-title>
+                  <v-card-subtitle>
+                    17.05.2023
+                  </v-card-subtitle>
                   <v-card-text>
-                    <h3 class="news-title"></h3>
-                    <p class="news-description"></p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
+                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
+                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
+                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
+                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
+                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
+                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
+                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="12" md="6">
-                <v-card class="news-card">
+            </v-row>
+            <v-row>
+              <v-col cols="6" md="4">
+                <v-card height="400px" color="background" border="none" elevation="1">
+                  <v-card-title>
+                    <h3>
+                      Bahnbabo wird Bürgerbabo!
+                    </h3>
+                  </v-card-title>
+                  <v-card-subtitle>
+                    17.05.2023
+                  </v-card-subtitle>
                   <v-card-text>
-                    <h3 class="news-title"></h3>
-                    <p class="news-description"></p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
+                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
+                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
+                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
+                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
+                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
+                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
+                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="12" md="6">
-                <v-card class="news-card">
+              <v-col cols="6" md="4">
+                <v-card height="400px"  color="background" border="none" elevation="1">
+                  <v-card-title>
+                    <h3>
+                      Bahnbabo wird Bürgerbabo!
+                    </h3>
+                  </v-card-title>
+                  <v-card-subtitle>
+                    17.05.2023
+                  </v-card-subtitle>
                   <v-card-text>
-                    <h3 class="news-title"></h3>
-                    <p class="news-description"></p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
+                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
+                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
+                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
+                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
+                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
+                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
+                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-card height="400px"  color="background" border="none" elevation="1">
+                  <v-card-title>
+                    <h3>
+                      Bahnbabo wird Bürgerbabo!
+                    </h3>
+                  </v-card-title>
+                  <v-card-subtitle>
+                    17.05.2023
+                  </v-card-subtitle>
+                  <v-card-text>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis repudiandae beatae quae eligendi
+                    illum repellendus aliquid quas recusandae eum. Distinctio id tempore tenetur dolores suscipit porro
+                    impedit nam, fuga modi nulla repellat aliquam earum reiciendis at est nemo quo eaque? Laborum
+                    debitis a placeat officiis eligendi alias. Consectetur repudiandae aut quaerat temporibus deleniti
+                    praesentium, deserunt eum quis quas. Molestiae iure, quia numquam illo vitae dicta enim dignissimos
+                    asperiores quis suscipit ex voluptas saepe beatae, tenetur distinctio aliquam harum provident
+                    obcaecati ea consectetur commodi laudantium? Nihil quas, perferendis cum consequuntur repellat
+                    expedita pariatur, corporis dolores, iste sit rem praesentium assumenda in!
                   </v-card-text>
                 </v-card>
               </v-col>

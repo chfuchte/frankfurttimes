@@ -12,6 +12,12 @@ body {
 
 h1 {
   font-family: "Times New Roman", Times, serif;
+  font-size: 44px;
+}
+
+h3 {
+  font-size: 30px;
+  font-family: "Times New Roman", Times, serif;
 }
 
 a {
