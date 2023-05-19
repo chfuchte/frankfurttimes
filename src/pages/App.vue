@@ -155,7 +155,7 @@ export default {
             <v-row>
               <v-col cols="12" md="12">
                 <v-card :href="titleData.mainTitle?.url" color="background" border="none" elevation="1">
-                  <v-parallax height="500" v-if="titleData.mainTitle?.img" :src="titleData.mainTitle?.img ?? ''" />
+                  <v-img cover v-if="titleData.mainTitle?.img" :src="titleData.mainTitle?.img ?? ''" />
                   <v-card-title>
                     <h1>
                       {{ titleData.mainTitle?.title }}
@@ -171,8 +171,6 @@ export default {
               </v-col>
               <v-col cols="12" md="12">
                 <v-card :href="titleData.rightTitle?.url" color="background" border="none" elevation="1">
-                  <v-img :src="titleData.rightTitle?.img ?? ''" v-if="titleData.rightTitle?.img != undefined"
-                    height="30vh"></v-img>
                   <v-card-title>
                     <h3>
                       {{ titleData.rightTitle?.title }}
@@ -189,7 +187,7 @@ export default {
             </v-row>
             <v-row>
               <v-col cols="12" md="6">
-                <v-card :href="titleData.leftSmallWithImg?.url" height="550px" color="background" border="none"
+                <v-card height="100%" :href="titleData.leftSmallWithImg?.url" color="background" border="none"
                   elevation="1">
                   <v-card-title>
                     <h3>
@@ -205,7 +203,7 @@ export default {
                 </v-card>
               </v-col>
               <v-col cols="12" md="6">
-                <v-card :href="titleData.rightSmallWithImg?.url" height="550px" color="background" border="none"
+                <v-card height="100%" :href="titleData.rightSmallWithImg?.url" color="background" border="none"
                   elevation="1">
                   <v-card-title>
                     <h3>
@@ -222,8 +220,8 @@ export default {
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="6" md="6">
-                <v-card :href="titleData.leftSmall?.url" height="400px" color="background" border="none" elevation="1">
+              <v-col cols="12" md="6">
+                <v-card height="100%" :href="titleData.leftSmall?.url" color="background" border="none" elevation="1">
                   <v-card-title>
                     <h3>
                       {{ titleData.leftSmall?.title }}
@@ -237,23 +235,8 @@ export default {
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="6" md="6">
-                <v-card :href="titleData.middleSmall?.url" height="400px" color="background" border="none" elevation="1">
-                  <v-card-title>
-                    <h3>
-                      {{ titleData.middleSmall?.title }}
-                    </h3>
-                  </v-card-title>
-                  <v-card-subtitle>
-                    {{ titleData.middleSmall?.date }}
-                  </v-card-subtitle>
-                  <v-card-text>
-                    <div v-html="renderText(titleData.middleSmall?.preview_text ?? '')"></div>
-                  </v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="6" md="6">
-                <v-card :href="titleData.rightSmall?.url" height="400px" color="background" border="none" elevation="1">
+              <v-col cols="12" md="6">
+                <v-card :href="titleData.rightSmall?.url" color="background" border="none" elevation="1">
                   <v-card-title>
                     <h3>
                       {{ titleData.rightSmall?.title }}
