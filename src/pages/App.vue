@@ -35,14 +35,14 @@ export default {
 
     // fetch Data
 
-    fetch('https://raw.githubusercontent.com/FrankfurtDynamics/frankfurttimesarticle/master/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
+    fetch('https://FrankfurtDynamics.github.io/frankfurttimesarticle/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
       this.articleData = data;
     }).catch(() => {
       this.error = "Fehler mein Laden der Artikel";
       this.isError = true;
     });
 
-    fetch('https://raw.githubusercontent.com/FrankfurtDynamics/frankfurttimesarticle/master/titleData.json').then((res: Response) => res.json()).then((data: Record<string, TitleArticle>) => {
+    fetch('https://FrankfurtDynamics.github.io/frankfurttimesarticle/titleData.json').then((res: Response) => res.json()).then((data: Record<string, TitleArticle>) => {
       this.titleData = data;
     }).catch(() => {
       this.error = "Fehler mein Laden der Artikel";

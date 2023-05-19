@@ -35,7 +35,7 @@ export default {
 
             this.articleData = [];
 
-            fetch('https://raw.githubusercontent.com/FrankfurtDynamics/frankfurttimesarticle/master/articleData.json').then((res: Response) => res.json()).then((data: { [key: string]: Article[] }) => {
+            fetch('https://FrankfurtDynamics.github.io/frankfurttimesarticle/articleData.json').then((res: Response) => res.json()).then((data: { [key: string]: Article[] }) => {
                 try {
                     const keys: string[] = [
                         "frankfurt",

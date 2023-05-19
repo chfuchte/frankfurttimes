@@ -12,7 +12,7 @@ export default {
     beforeMount() {
         let articles: Record<string, Article[]>;
 
-        fetch('https://raw.githubusercontent.com/FrankfurtDynamics/frankfurttimesarticle/master/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
+        fetch('https://FrankfurtDynamics.github.io/frankfurttimesarticle/articleData.json').then((res: Response) => res.json()).then((data: Record<string, Article[]>) => {
             articles = data;
             // Überprüfe, ob Suchparameter vorhanden sind
             const params = new URLSearchParams(window.location.search);
