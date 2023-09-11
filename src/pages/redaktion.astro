@@ -35,7 +35,7 @@ const redaktionsArr = await Astro.glob("../content/redaktion/*.md");
     padding-right: 20px;
     box-sizing: border-box;
     overflow-y: hidden;
-    overflow-x: scroll;
+    overflow-x: auto;
   }
 
   /* Style the .redaktion_card articles */
@@ -55,6 +55,12 @@ const redaktionsArr = await Astro.glob("../content/redaktion/*.md");
   @media screen and (min-width: 600px) {
     .redaktion_card {
       min-width: 300px;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .redaktion_card {
+      min-width: 100%;
     }
   }
 
