@@ -1,7 +1,9 @@
 {
   "name": "astroproject",
+  "private": true,
   "type": "module",
   "version": "0.0.1",
+  "license": "MIT",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
