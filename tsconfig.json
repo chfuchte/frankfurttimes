@@ -1,28 +1,3 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "target": "es6",
-    "module": "ES6",
-    "moduleResolution": "node",
-    "noUnusedParameters": true,
-    "declaration": false,
-    "preserveValueImports": false,
-    "ignoreDeprecations": "5.0",
-    "noFallthroughCasesInSwitch": true,
-    "allowJs": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "typeRoots": [
-      "node_modules/**/types"
-    ]
-  },
-
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+  "extends": "astro/tsconfigs/strict"
 }

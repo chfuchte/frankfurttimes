@@ -1,27 +1,15 @@
 {
-  "name": "frankfurttimes",
-  "private": true,
-  "version": "0.0.0",
+  "name": "astroproject",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@mdi/font": "^7.2.96",
-    "@vue/cli-service": "^5.0.8",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "mongodb": "^5.5.0",
-    "vue": "^3.2.47",
-    "vuetify": "^3.2.3"
-  },
-  "devDependencies": {
-    "@types/node": "^20.1.2",
-    "@vitejs/plugin-vue": "^4.2.1",
-    "@vue/tsconfig": "^0.3.2",
-    "typescript": "^5.0.2",
-    "vite": "^4.3.2",
-    "vue-tsc": "^1.6.4"
+    "astro": "^3.0.12"
   }
 }
