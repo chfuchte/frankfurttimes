@@ -1,0 +1,88 @@
+---
+import { marked } from "marked";
+import markedLinkifyIt from "marked-linkify-it";
+import katex from "katex";
+import "katex/dist/katex.min.css";
+
+const { article } = Astro.props;
+
+function renderContent() {
+  marked.use(markedLinkifyIt());
+  const renderer = new marked.Renderer({});
+  renderer.text = (text: string) => {
+    return text.replace(/\${2}([\s\S]*?)\${2}/g, (match, code) => {
+      try {
+        return (
+          "<span>" +
+          katex.renderToString(code, {
+            throwOnError: false,
+          }) +
+          "</span>"
+        );
+      } catch (err) {
+        return match;
+      }
+    });
+  };
+  const mded = marked(article.rawContent(), {
+    breaks: true,
+    renderer: renderer,
+  });
+  return mded;
+}
+---
+
+<article>
+  <a href={article.frontmatter.titleImg}>
+    <img src={article.frontmatter.titleImg} />
+  </a>
+  <span class="info"
+    >{article.frontmatter.date} | {article.frontmatter.author}</span
+  >
+  <h2>{article.frontmatter.title}</h2>
+  <div class="content" set:html={renderContent()} />
+</article>
+
+<style scoped>
+  article {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+
+  article h2 {
+    font-size: 3em;
+    margin-bottom: -6px;
+  }
+
+  article .info {
+    font-size: 16px;
+    color: #242424;
+    margin-bottom: -6px;
+  }
+
+  article a {
+    width: 100%;
+    height: 100%;
+  }
+
+  article a img {
+    width: 100%;
+    max-height: min(500px, 40svh);
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  article .content {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    margin-top: 16px;
+  }
+</style>

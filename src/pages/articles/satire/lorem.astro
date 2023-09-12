@@ -1,0 +1,10 @@
+---
+import DefaultLayout from "../../../layouts/DefaultLayout.astro";
+import Article from "../../../components/Article.astro";
+
+const article = (await Astro.glob("../../../content/articles/satire/lorem.md"))[0];
+---
+
+<DefaultLayout pageTitle="Lesen">
+  <Article article={article} />
+</DefaultLayout>
