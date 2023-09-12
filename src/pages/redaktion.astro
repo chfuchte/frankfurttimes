@@ -25,40 +25,43 @@ const redaktionsArr = await Astro.glob("../content/redaktion/*.md");
 
 <style>
   .redaktion__wrapper {
-    width: 100%;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: row;
-    gap: 12px;
-    padding-left: 20px;
-    padding-right: 20px;
-    box-sizing: border-box;
-    overflow-y: hidden;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5%;
   }
 
-  /* Style the .redaktion_card articles */
   .redaktion_card {
     background-color: #ffffff;
-    padding: 20px;
+    padding: 10px; /* Reduziere den Padding */
     border-radius: 8px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
     box-sizing: border-box;
     width: 100%;
-    max-height: 700px;
-    height: 700px;
-    max-width: 380px;
+    max-width: 300px;
+    gap: 10px;
   }
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 450px) {
     .redaktion_card {
-      min-width: 300px;
+      min-width: 350px;
     }
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (min-width: 650px) {
+    .redaktion_card {
+      min-width: 200px;
+    }
+  }
+
+  @media screen and (max-width: 650px) {
+    .redaktion_card {
+      min-width: 200px;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
     .redaktion_card {
       min-width: 100%;
     }
@@ -71,22 +74,19 @@ const redaktionsArr = await Astro.glob("../content/redaktion/*.md");
     aspect-ratio: 1/1;
   }
 
-  /* Style the h3 headings */
   .redaktion_card h3 {
-    font-size: 24px;
+    font-size: 20px;
     color: #333333;
     margin-bottom: -6px;
   }
 
-  /* Style the .redaktion_card__titel paragraphs */
   .redaktion_card__titel {
-    font-size: 18px;
+    font-size: 16px;
     color: #666666;
   }
 
-  /* Style the .redaktion_card_year paragraphs */
   .redaktion_card_year {
-    font-size: 16px;
+    font-size: 14px;
     color: #999999;
   }
 
