@@ -1,0 +1,62 @@
+---
+const { article } = Astro.props as { article: {
+  file: string;
+  frontmatter: {
+    titleImg: string;
+    title: string;
+    date: string;
+    author: string;
+  };
+} };
+---
+
+<article>
+  <a href={article.file.substring(article.file.indexOf("content/") + 7, article.file.length).replace(".md", "")}>
+    <img src={article.frontmatter.titleImg} />
+  <span class="info"
+    >{article.frontmatter.date} | {article.frontmatter.author}</span
+  >
+  <h2>{article.frontmatter.title}</h2>
+</a>
+</article>
+
+<style scoped>
+  article a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  article {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+  article h2 {
+    font-size: 3em;
+    margin-bottom: -6px;
+  }
+
+  article .info {
+    font-size: 16px;
+    color: #242424;
+    margin-bottom: -6px;
+  }
+
+  article a {
+    width: 100%;
+    height: 100%;
+  }
+
+  article a img {
+    width: 100%;
+    max-height: min(500px, 40vh);
+    object-fit: cover;
+    object-position: center center;
+  }
+</style>

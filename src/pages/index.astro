@@ -1,7 +1,30 @@
 ---
+import ArticlePreview from "../components/ArticlePreview.astro";
 import DefaultLayout from "../layouts/DefaultLayout.astro";
+
+let articles = Array<Object>();
+
+try {
+articles = await Astro.glob("../content/start/**/*.md")
+} catch (e) {
+  console.info("Keine Artikel für Seite 'Start' gefunden");
+};
 ---
 
 <DefaultLayout pageTitle="Start">
-  <h1>Index</h1>
+  {
+    articles.map((article: any) => {
+      <ArticlePreview article={article} />
+    })
+  }
+
+  {articles.length == 0 && <h1 class="error">Es wurden keine Artikel gefunden</h1>}
 </DefaultLayout>
+
+<style>
+  .error {
+    width: 100%;
+    margin-top: 2em;
+    text-align: center;
+  }
+</style>
